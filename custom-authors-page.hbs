@@ -1,0 +1,96 @@
+{{!< default}}
+
+{{#page}}
+<main class="page authors-page">
+    <div class="page-container">
+        {{>breadcrumbs classNames=" page__breadcrumbs"}}
+        {{#match @page.show_title_and_feature_image}}
+        <header class="page-header">
+            {{#if feature_image}}
+                    <picture class="page-header__img-wrapper">
+                    <source srcset="
+                    {{img_url feature_image size="2800" format="webp" }} 2800w,
+                    {{img_url feature_image size="2400" format="webp" }} 2400w,
+                    {{img_url feature_image size="2000" format="webp" }} 2000w, 
+                    {{img_url feature_image size="1600" format="webp" }} 1600w, 
+                    {{img_url feature_image size="1200" format="webp" }} 1200w, 
+                    {{img_url feature_image size="960" format="webp" }} 960w, 
+                    {{img_url feature_image size="720" format="webp" }} 720w, 
+                    {{img_url feature_image size="480" format="webp" }} 480w, 
+                    {{img_url feature_image size="400" format="webp" }} 400w"
+                        sizes="(max-width: 1300px) 97vw, 1240px" type="image/webp">
+                    <img class="page-header__img" srcset="
+                    {{img_url feature_image size="2800"}} 2800w,
+                    {{img_url feature_image size="2400"}} 2400w,
+                    {{img_url feature_image size="2000"}} 2000w,
+                    {{img_url feature_image size="1600"}} 1600w,
+                    {{img_url feature_image size="1200"}} 1200w, 
+                    {{img_url feature_image size="960"}} 960w, 
+                    {{img_url feature_image size="720"}} 720w, 
+                    {{img_url feature_image size="480"}} 480w, 
+                    {{img_url feature_image size="400"}} 400w"
+                        sizes="(max-width: 1300px) 97vw, 1240px" src="{{img_url feature_image size="2800"}}" alt="{{title}} {{t "Page image"}}" />
+                    </picture>
+            {{/if}}
+            <h1 class="page-header__title">
+                {{title}}
+            </h1>
+            {{#if custom_excerpt}}
+            <p class="page-header__excerpt">
+                {{custom_excerpt}}
+            </p>
+            {{/if}}
+        </header>
+        {{/match}}
+{{/page}}
+
+    <section class="authors">
+        {{#get "authors" include="count.posts" limit="all"}}
+            {{#foreach authors}}
+                <a class="author-card" href="{{url}}" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                    <div class="author-card__wrapper">
+                        {{#if profile_image}}
+                            <picture class="author-card__image-wrapper">
+                                <source srcset="
+                                {{img_url profile_image size="300" format="webp" }} 300w,
+                                {{img_url profile_image size="100" format="webp" }} 100w"
+                                    sizes="100px" type="image/webp">
+                                <img class="author-card__image" srcset="
+                                {{img_url profile_image size="300"}} 300w,
+                                {{img_url profile_image size="100"}} 100w"
+                                    sizes="100px" src="{{img_url profile_image size="300"}}"
+                                    alt="{{name}} {{t "Profile image"}}" />
+                            </picture>
+                        {{else}}
+                            <div class="author-card__image-wrapper author-card__image-wrapper--no-image">
+                                {{>icons/author-default-icon}}
+                            </div>
+                        {{/if}}
+
+                        <div class="author-card__posts-count">
+                            {{count.posts}}
+                            {{plural count.posts empty=(t "No Posts") singular=(t "Post") plural=(t "Posts")}}
+                        </div>
+                    </div>
+
+                    <div class="author-card__wrapper">
+                        {{#if location}}
+                            <span class="author-card__location">{{location}}</span>
+                        {{/if}}
+
+                        <span>
+                            <span class="author-card__name">{{name}}</span>
+                        </span>
+
+                        {{#if bio}}
+                            <p class="author-card__bio">
+                                {{bio}}
+                            </p>
+                        {{/if}}
+                    </div>
+                </a>
+            {{/foreach}}
+        {{/get}}
+    </section>
+    </div>
+</main>

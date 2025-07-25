@@ -1,0 +1,87 @@
+<div class="post-footer">
+    <div class="post-footer__info">
+        {{>post-tags showTags="true"}}
+        <div class="post-footer__meta">
+            {{>post-tags showTagsIcons="true"}}
+
+            <time class="post-header__date" datetime="{{date format='YYYY-MM-DD'}}">
+                {{date format="MMM D, YYYY"}}
+            </time> 
+
+            {{#match authors.length '=' 1}}
+            {{#foreach authors}}
+                <div class="post-card-author">
+                    {{#if profile_image}}
+                        <picture class="post-card-author__img-wrapper">
+                            <source 
+                                srcset="
+                                {{img_url profile_image size="100" format="webp"}} 100w"
+                                sizes="34px"  
+                                type="image/webp">
+                            <img 
+                                srcset="
+                                {{img_url profile_image size="100"}} 100w"
+                                sizes="34px" 
+                                src="{{img_url profile_image}}"
+                                class="post-card-author__img" 
+                                alt="{{name}} {{t "Profile image"}}">
+                        </picture>
+                    {{/if}}
+
+                    <div class="post-card-author__name-wrapper">
+                        <span class="post-card-author__name-prefix post-card-author__name-prefix--default-post">{{t "by"}}</span>  
+                        <a href="{{url}}" class="post-card-author__name post-card-author__name--default-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                            {{name}}
+                        </a>
+                    </div>
+                </div>
+            {{/foreach}}
+        {{else}}
+            {{#foreach authors}}
+                <div class="post-card-author">
+                    <div class="post-card-author__name-wrapper">
+                        {{#if @first}}
+                            <span class="post-card-author__name-prefix post-card-author__name-prefix--default-post">{{t "by"}}</span>  
+                        {{/if}}
+                        <a href="{{url}}" class="post-card-author__name post-card-author__name--default-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                            {{name}}
+                        </a>
+                    </div>
+                </div>
+            {{/foreach}}
+        {{/match}}
+
+        {{comment_count empty="" singular="" class="post-comment-count"}}
+        </div>
+    </div>
+
+    <div class="post-footer__share">
+        <div class="post-footer__share-wrapper">
+            <div class="post-footer__share-info">
+                <h4 class="post-footer__share-title">{{t "Spread the Word"}}</h4>
+                <p class="post-footer__share-description">{{t "Share it with friends and help reliable news reach more people."}}</p>
+            </div>
+        </div>
+
+        <div class="post-footer__share-btns">
+            <a class="share-btn"
+                href="https://www.facebook.com/sharer.php?u={{url absolute='true'}}" target="_blank" rel="noopener"
+                aria-label="{{t "Share on Facebook"}}">
+                 {{>icons/facebook-icon}}
+            </a>
+            <a class="share-btn"
+                href="https://twitter.com/intent/tweet?url={{url absolute='true'}}&amp;text={{encode title}}" target="_blank"
+                rel="noopener" aria-label="{{t "Share on Twitter"}}">
+                 {{>icons/twitter-icon}}
+            </a>
+            <a class="share-btn"
+                href="https://reddit.com/submit?url={{url absolute='true'}}&amp;media=&amp;description={{encode title}}"
+                target="_blank" rel="noopener" data-pin-do="none" aria-label="{{t "Share on Reddit"}}">
+                {{>icons/reddit-icon}}
+            </a>
+            <button class="share-btn copyToClipboardBtn" aria-label="{{t "Copy to clipboard button"}}">
+                {{>icons/copy-link-icon}}
+            </button>
+        </div>
+    </div>
+</div>

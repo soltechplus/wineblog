@@ -1,0 +1,196 @@
+<header class="post-header{{#if featured}} post-header--featured{{else}} post-header--default{{/if}}">
+    {{#if featured}}
+        {{#if feature_image}}
+            <picture class="post-header__img-wrapper">
+                <source srcset="
+                {{img_url feature_image size="2800" format="webp" }} 2800w,
+                {{img_url feature_image size="2400" format="webp" }} 2400w,
+                {{img_url feature_image size="2000" format="webp" }} 2000w, 
+                {{img_url feature_image size="1600" format="webp" }} 1600w, 
+                {{img_url feature_image size="1200" format="webp" }} 1200w, 
+                {{img_url feature_image size="960" format="webp" }} 960w, 
+                {{img_url feature_image size="720" format="webp" }} 720w, 
+                {{img_url feature_image size="480" format="webp" }} 480w, 
+                {{img_url feature_image size="400" format="webp" }} 400w"
+                    sizes="(max-width: 1300px) 97vw, 1240px" type="image/webp">
+                <img class="post-header__img" srcset="
+                {{img_url feature_image size="2800"}} 2800w,
+                {{img_url feature_image size="2400"}} 2400w,
+                {{img_url feature_image size="2000"}} 2000w,
+                {{img_url feature_image size="1600"}} 1600w,
+                {{img_url feature_image size="1200"}} 1200w, 
+                {{img_url feature_image size="960"}} 960w, 
+                {{img_url feature_image size="720"}} 720w, 
+                {{img_url feature_image size="480"}} 480w, 
+                {{img_url feature_image size="400"}} 400w"
+                    sizes="(max-width: 1300px) 97vw, 1240px" src="{{img_url feature_image size="2800"}}" alt="{{title}} {{t "Post image"}}" />
+            </picture>
+        {{else}}
+            <div class="post-header__no-img-wrapper{{#if @custom.dark_mode_logo}} has-dark-version{{/if}}">
+                {{#if @site.logo}}
+                    {{#if @custom.dark_mode_logo}}
+                        <img class="post-header__no-img post-header__no-img--dark" src="{{img_url @custom.dark_mode_logo}}" alt="{{@site.title}} {{t "icon"}}">
+                    {{/if}}
+                    <img class="post-header__no-img post-header__no-img--light" src="{{img_url @site.logo}}" alt="{{@site.title}} {{t "icon"}}">
+                {{else}}
+                    <span class="logo__title">{{@site.title}}</span>
+                {{/if}}
+            </div>
+        {{/if}}
+
+        <div class="post-header__wrapper">
+            {{>post-tags showTags="true"}}
+
+            <h1 class="post-header__title post-header__title--with-bg">
+               <span>{{title}}</span>
+            </h1>
+            
+            <div class="post-header__meta">
+               {{>post-tags showTagsIcons="true"}}
+
+               <time class="post-header__date" datetime="{{date format='YYYY-MM-DD'}}">
+                  {{date format="MMM D, YYYY"}}
+               </time> 
+
+               {{#match authors.length '=' 1}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        {{#if profile_image}}
+                            <a class="post-card-author__img-link" href="{{url}}" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                <picture class="post-card-author__img-wrapper">
+                                    <source 
+                                        srcset="
+                                        {{img_url profile_image size="100" format="webp"}} 100w"
+                                        sizes="34px"  
+                                        type="image/webp">
+                                    <img 
+                                        srcset="
+                                        {{img_url profile_image size="100"}} 100w"
+                                        sizes="34px" 
+                                        src="{{img_url profile_image}}"
+                                        class="post-card-author__img" 
+                                        alt="{{name}} {{t "Profile image"}}">
+                                </picture>
+                            </a>
+                        {{/if}}
+
+                        <div class="post-card-author__name-wrapper">
+                            <span class="post-card-author__name-prefix post-card-author__name-prefix--big-post">{{t "by"}}</span>  
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--big-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{else}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        <div class="post-card-author__name-wrapper">
+                            {{#if @first}}
+                                <span class="post-card-author__name-prefix post-card-author__name-prefix--big-post">{{t "by"}}</span>  
+                            {{/if}}
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--big-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{/match}}
+
+            {{comment_count empty="" plural="" singular="" class="post-comment-count"}}
+            </div>
+        </div>
+    {{else}}
+         {{>post-tags showTags="true"}}
+
+         <h1 class="post-header__title">
+            <span>{{title}}</span>
+         </h1>
+
+         {{#if custom_excerpt}}
+            <p class="post-header__excerpt">
+               {{custom_excerpt}}
+            </p>
+         {{/if}}
+
+         <div class="post-header__meta">
+            {{>post-tags showTagsIcons="true"}}
+
+            <time class="post-header__date" datetime="{{date format='YYYY-MM-DD'}}">
+               {{date format="MMM D, YYYY"}}
+            </time> 
+
+            {{#match authors.length '=' 1}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        {{#if profile_image}}
+                            <a class="post-card-author__img-link" href="{{url}}" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                <picture class="post-card-author__img-wrapper">
+                                    <source 
+                                        srcset="
+                                        {{img_url profile_image size="100" format="webp"}} 100w"
+                                        sizes="34px"  
+                                        type="image/webp">
+                                    <img 
+                                        srcset="
+                                        {{img_url profile_image size="100"}} 100w"
+                                        sizes="34px" 
+                                        src="{{img_url profile_image}}"
+                                        class="post-card-author__img" 
+                                        alt="{{name}} {{t "Profile image"}}">
+                                </picture>
+                            </a>
+                        {{/if}}
+
+                        <div class="post-card-author__name-wrapper">
+                            <span class="post-card-author__name-prefix post-card-author__name-prefix--default-post">{{t "by"}}</span>  
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--default-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{else}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        <div class="post-card-author__name-wrapper">
+                            {{#if @first}}
+                                <span class="post-card-author__name-prefix post-card-author__name-prefix--default-post">{{t "by"}}</span>  
+                            {{/if}}
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--default-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{/match}}
+
+            {{comment_count empty="" plural="" singular="" class="post-comment-count"}}
+         </div>
+
+        {{#if feature_image}}
+        <div class="post-header__img-wrapper">
+            <picture>
+                <source srcset="
+                {{img_url feature_image size="2000" format="webp" }} 2000w, 
+                {{img_url feature_image size="1600" format="webp" }} 1600w, 
+                {{img_url feature_image size="1200" format="webp" }} 1200w, 
+                {{img_url feature_image size="960" format="webp" }} 960w, 
+                {{img_url feature_image size="720" format="webp" }} 720w, 
+                {{img_url feature_image size="480" format="webp" }} 480w, 
+                {{img_url feature_image size="400" format="webp" }} 400w"
+                    sizes="(max-width: 900px) 96vw, 822px" type="image/webp">
+                <img class="post-header__img" srcset="
+                {{img_url feature_image size="2000" }} 2000w,
+                {{img_url feature_image size="1600" }} 1600w,
+                {{img_url feature_image size="1200" }} 1200w, 
+                {{img_url feature_image size="960" }} 960w, 
+                {{img_url feature_image size="720" }} 720w, 
+                {{img_url feature_image size="480" }} 480w, 
+                {{img_url feature_image size="400" }} 400w"
+                    sizes="(max-width: 900px) 96vw, 822px" src="{{img_url feature_image size="2000"}}" alt="{{title}} {{t "Post image"}}" />
+            </picture>
+        </div>
+        {{/if}}
+    {{/if}}
+</header>

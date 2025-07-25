@@ -1,0 +1,41 @@
+<div class="header-btns">
+    <button class="search-btn" title="{{t "Search button"}}" aria-label="{{t "Search button"}}" data-ghost-search>
+        {{>icons/search-icon}}
+        <span class="search-btn__text">{{t "Search"}}</span>
+    </button>
+
+    {{#match @custom.default_theme "="  'only dark'}}
+    {{else match @custom.default_theme "=" 'only light'}}
+    {{else match @custom.default_theme "=" 'system'}}
+    {{else}}
+        <button class="switch-theme-btn" data-switch-theme-btn aria-label="{{t "Switch theme mode toggle button"}}">
+            <span class="switch-theme-btn__btn">
+                {{>icons/dark-mode-icon}}
+            </span>
+            <span class="switch-theme-btn__btn">
+                {{>icons/light-mode-icon}}
+            </span>
+        </button>
+    {{/match}}
+
+    {{#if @site.members_enabled}}
+        <div class="header-account">
+            {{#if @member}}
+                <a href="{{#if @site.portal_button}}#/portal/account{{else}}/account{{/if}}" class="login-button" title="{{t "Account page link"}}" aria-label="{{t "Account page link"}}">
+                    <span class="login-button__text-wrapper">
+                        <span class="login-button__text">{{t "Account"}}</span>
+                        <span class="login-button__text">{{t "Account"}}</span>
+                    </span>
+                </a>
+            {{else}}
+                <button data-dropdown-elem="button" class="login-button" title="{{t "Sign up button"}}" aria-label="{{t "Sign up button"}}">
+                    <span class="login-button__text-wrapper">
+                        <span class="login-button__text">{{t "Sign Up"}}</span>
+                        <span class="login-button__text">{{t "Sign Up"}}</span>
+                    </span>
+                </button>
+                {{>header/header-dropdown-account}}
+            {{/if}}
+        </div>
+    {{/if}}
+</div>

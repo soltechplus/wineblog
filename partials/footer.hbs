@@ -1,0 +1,45 @@
+<footer class="footer">
+   <div class="footer__container">
+      <div class="footer__meta">
+         {{>site-logo}}
+         <span class="footer-copyright">{{t "Copyright ©"}}            
+            {{date format="YYYY"}}
+            {{@site.title}}. {{t "Published with"}} 
+            <a class="footer-copyright__link" href="https://ghost.org" target="_blank" rel="noopener" aria-label="{{t "Ghost CMS official website link"}}">{{t "Ghost"}}</a>
+            {{t "and"}}
+            <a class="footer-copyright__link" href="{{@site.url}}" aria-label="{{@site.title}}">{{@site.title}}</a>.
+         </span>
+         {{>socials socialLinkClassName=" social-link--gray-bg"}}
+      </div>
+
+      <nav class="footer-nav">
+         {{navigation position="footer nav" showSubMenu="true"}}
+         {{navigation position="footer nav" showSubMenu="false"}}
+         {{navigation position="footer nav" type="secondary" showSubMenu="false"}}
+      </nav>
+
+      <form class="footer-form" data-members-form="subscribe" data-members-autoredirect="false">
+            <h2 class="footer-form__title">
+               {{t "Don't Miss the Latest News"}}
+            </h2>
+            <div class="footer-form__input-wrapper">
+               <input autocomplete="off" class="footer-form__input" data-members-email type="email" name="email-input" id="subscribe-banner-email-input" placeholder="{{t "Enter your email"}}" aria-label="{{t "Your email address"}}" required>
+               {{>button btnText="Subscribe" ariaLabel="Subscribe"}}
+            </div>
+
+            <p class="footer-form__error" data-members-error></p>
+            {{#if @site.portal_signup_terms_html}}
+               <div class="footer-form__terms">{{{@site.portal_signup_terms_html}}}</div>
+            {{/if}}
+            <div class="footer-form__success">
+               <h4 class="footer-form__success-title">
+                  {{t "Success! Now Check Your Email"}}
+               </h4>
+               <p class="footer-form__success-text">
+                  {{t "To complete Subscribe, click the confirmation link in your inbox. If
+                  it doesn’t arrive within 3 minutes, check your spam folder."}}
+               </p>
+            </div>
+      </form>
+   </div>
+</footer>

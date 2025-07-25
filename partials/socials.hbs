@@ -1,0 +1,14 @@
+<div class="socials">
+    {{#if @site.facebook}}
+        <a class="social-link{{socialLinkClassName}}" href="{{facebook_url}}" target="_blank" rel="noopener"
+        aria-label="{{name}}'s {{t "facebook link"}}">
+        {{>icons/facebook-icon}}
+        </a>
+    {{/if}}
+    {{#if @site.twitter}}
+        <a class="social-link{{socialLinkClassName}}" href="{{twitter_url}}" target="_blank" rel="noopener"
+        aria-label="{{name}}'s {{t "twitter link"}}">
+        {{>icons/twitter-icon}}
+        </a>
+    {{/if}}
+</div>

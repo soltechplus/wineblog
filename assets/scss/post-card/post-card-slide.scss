@@ -1,0 +1,192 @@
+.post-card-slide {
+  position: relative;
+
+  max-width: 300px;
+  width: 100%;
+  min-height: 400px;
+  height: auto;
+
+  overflow: hidden;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .post-card-slide__no-img-title,
+      .post-card-slide__no-img,
+      .post-card-slide__img {
+        scale: 1.03;
+      }
+    }
+  }
+
+  &::before {
+    content: '';
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 67.65%, rgba(0, 0, 0, 0.4) 87.42%);
+    position: absolute;
+    inset: 0;
+  }
+
+  &__img-link {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  &__no-img-link {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--stroke-color);
+    transition: background-color $transition-time ease;
+
+    overflow: hidden;
+  }
+
+  &__no-img-title,
+  &__no-img {
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__no-img {
+    width: 25%;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    padding-right: 16px;
+    padding-bottom: 24px;
+
+    height: 100%;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  &__heading {
+    max-width: 268px;
+    width: 100%;
+    margin-top: auto;
+    margin-left: 10px;
+    padding-right: 16px;
+  }
+
+  &__heading-link {
+    @include font--titles-H3;
+    line-height: 3.4rem;
+
+    color: #fff;
+    border-radius: $border-radius-text;
+
+    background-position: left 85%;
+    background-size: 100%;
+    background-image: linear-gradient(
+      to right,
+      var(--title-bg-color) 0%,
+      var(--title-bg-color) 100%
+    );
+    background-repeat: no-repeat;
+
+    padding: 0px 12px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .private-tag {
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    margin-left: 10px;
+    min-height: 28px;
+    @include font--text-XS;
+  }
+
+  &__date {
+    color: #fff;
+    opacity: 0.8;
+  }
+
+  &__link {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+
+  .post-tags {
+    position: relative;
+    z-index: 5;
+    margin-bottom: 10px;
+  }
+}
+
+html {
+  &[data-theme='light'] {
+    .post-card-slide {
+      .post-comment-count {
+        color: #fff;
+        &::before {
+          background-image: url('data:image/svg+xml,<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.66665 13H15.1976L16.6666 14.1542V5.5H17.5C17.9602 5.5 18.3333 5.8731 18.3333 6.33333V17.5833L14.6212 14.6667H7.49998C7.03975 14.6667 6.66665 14.2936 6.66665 13.8333V13ZM4.54544 11.3333L0.833313 14.25V1.33333C0.833313 0.8731 1.20641 0.5 1.66665 0.5H14.1666C14.6269 0.5 15 0.8731 15 1.33333V11.3333H4.54544Z" fill="white"/></svg>');
+        }
+      }
+    }
+    .post-card-slide__no-img-link.has-dark-version {
+      .post-card-slide__no-img {
+        &--light {
+          display: block;
+        }
+
+        &--dark {
+          display: none;
+        }
+      }
+    }
+  }
+  &[data-theme='dark'] {
+    .post-card-slide {
+      .post-comment-count {
+        color: #fff;
+        &::before {
+          background-image: url('data:image/svg+xml,<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.66665 13H15.1976L16.6666 14.1542V5.5H17.5C17.9602 5.5 18.3333 5.8731 18.3333 6.33333V17.5833L14.6212 14.6667H7.49998C7.03975 14.6667 6.66665 14.2936 6.66665 13.8333V13ZM4.54544 11.3333L0.833313 14.25V1.33333C0.833313 0.8731 1.20641 0.5 1.66665 0.5H14.1666C14.6269 0.5 15 0.8731 15 1.33333V11.3333H4.54544Z" fill="white"/></svg>');
+        }
+      }
+    }
+    .post-card-slide__no-img-link.has-dark-version {
+      .post-card-slide__no-img {
+        &--light {
+          display: none;
+        }
+
+        &--dark {
+          display: block;
+        }
+      }
+    }
+  }
+}

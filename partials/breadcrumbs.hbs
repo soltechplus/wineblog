@@ -1,0 +1,36 @@
+<nav>
+    <ul class="breadcrumbs{{classNames}}">
+        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{@site.url}}" aria-label="{{t "Home page link"}}">{{t "Home"}}</a></li>
+        {{#is "post"}}
+            {{#if primary_tag.url}}
+                <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{primary_tag.url}}" aria-label="{{primary_tag.name}} {{t "Page link"}}">{{primary_tag.name}}</a></li>
+            {{/if}}
+            <li class="breadcrumbs__item">{{title}}</li>
+        {{/is}}
+
+        {{#is "tag"}}
+            <li class="breadcrumbs__item">{{name}}</li>
+        {{/is}}
+
+        {{#is "author"}}
+            {{#get "pages" slug="authors"}}
+                {{#if pages}}
+                    <li class="breadcrumbs__item"><a href="{{@site.url}}/authors" class="breadcrumbs__link" aria-label="{{t "Authors page link"}}">{{pages.[0].title}}</a></li>
+                {{/if}}
+            {{/get}}
+            
+            <li class="breadcrumbs__item">{{name}}</li>
+        {{/is}}
+
+        {{#is "page"}}
+            {{#if page.title}}
+                <li class="breadcrumbs__item">{{page.title}}</li>
+            {{/if}}
+            {{#unless page.title}}
+                {{#if title}}
+                    <li class="breadcrumbs__item">{{title}}</li>
+                {{/if}}
+            {{/unless}}
+        {{/is}} 
+    </ul>
+</nav>

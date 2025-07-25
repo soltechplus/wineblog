@@ -1,0 +1,93 @@
+{{!< default}}
+
+{{#post}}
+    <main class="post-page">
+        {{>breadcrumbs classNames=" post-page__breadcrumbs"}}
+        <div class="post-page__wrapper{{^if featured}} post-page__wrapper--default{{/if}}">
+            <article class="post {{slug}} {{primary_tag.slug}}">
+                {{>post/post-header}}
+                <div class="post-content">
+                    {{content}}
+                </div>
+                {{>post/post-footer}}
+                {{#if comments}}
+                    <div class="post-comments{{^if @member}} post-comments--not-member{{/if}}">
+                        {{comments title="" mode="auto" saturation=0 count=false}}
+                    </div>
+                {{/if}}
+
+                {{>post/next-post-block}}
+            </article>
+
+            <aside class="sidebar{{#if @custom.advertisement_image}} sidebar--with-adv-img{{/if}}">
+                <div class="sidebar__posts-wrapper">
+                    <span class="sidebar__posts-title">
+                        {{t "Featured"}}
+                    </span>
+                    <div class="sidebar__slider">
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                {{#get "posts" limit=3 include="tags,authors" order="published_at desc" filter="featured:true"}}
+                                    {{#if posts}}
+                                        {{#foreach posts}}
+                                            {{>post-card/post-card-slide}}
+                                        {{/foreach}}
+                                    {{/if}}
+                                {{/get}}
+                            </div>
+                        </div>
+
+                        <div class="swiper-nav-btn swiper-button-prev">{{>icons/slider-nav-icon}}</div>
+                        <div class="swiper-nav-btn swiper-button-next">{{>icons/slider-nav-icon}}</div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar__posts-wrapper">
+                    <span class="sidebar__posts-title">
+                        {{t "Latest"}}
+                    </span>
+                    {{#get "posts" limit=3 include="tags,authors" order="published_at desc"}}
+                        {{#if posts}}
+                            <div class="sidebar__posts">
+                                {{#foreach posts}}
+                                {{>post-card/post-card-big-secondary}}
+                                {{/foreach}}
+                            </div>
+                        {{/if}}
+                    {{/get}}
+                </div>
+
+                {{#if @custom.advertisement_image}}
+                <div class="advertisement">
+                    <picture>
+                        <source srcset="
+                        {{img_url @custom.advertisement_image size="2000" format="webp" }} 2000w, 
+                        {{img_url @custom.advertisement_image size="1600" format="webp" }} 1600w, 
+                        {{img_url @custom.advertisement_image size="1200" format="webp" }} 1200w, 
+                        {{img_url @custom.advertisement_image size="960" format="webp" }} 960w, 
+                        {{img_url @custom.advertisement_image size="720" format="webp" }} 720w, 
+                        {{img_url @custom.advertisement_image size="480" format="webp" }} 480w, 
+                        {{img_url @custom.advertisement_image size="400" format="webp" }} 400w"
+                        sizes="(max-width: 1000px) 95vw, 300px" type="image/webp">
+                        <img srcset="
+                        {{img_url @custom.advertisement_image size="2000"}} 2000w, 
+                        {{img_url @custom.advertisement_image size="1600"}} 1600w, 
+                        {{img_url @custom.advertisement_image size="1200"}} 1200w, 
+                        {{img_url @custom.advertisement_image size="960"}} 960w, 
+                        {{img_url @custom.advertisement_image size="720"}} 720w, 
+                        {{img_url @custom.advertisement_image size="480"}} 480w, 
+                        {{img_url @custom.advertisement_image size="400"}} 400w"
+                        sizes="(max-width: 1000px) 95vw, 300px"
+                                src="{{img_url @custom.advertisement_image size="2000"}}" alt="{{@site.title}} {{t "cover image"}}" class="advertisement__img">
+                    </picture>
+                </div>
+                {{/if}}
+            </aside>
+        </div>
+        {{>post/post-read-next}}
+    </main>
+    {{>scripts/lightBox}}
+{{/post}}
+
+

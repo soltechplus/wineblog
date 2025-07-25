@@ -1,0 +1,70 @@
+<div class="mobile-menu-container">
+    <div class="mobile-menu">
+        <div class="mobile-menu__header">
+            <button class="header-btn" data-mobile-menu="close">
+                <span class="header-btn__icon-wrapper">
+                    {{>icons/mobile-menu-close-icon}}
+                    {{>icons/mobile-menu-close-icon}}
+                </span>
+            </button>
+            {{>site-logo}}
+            <button class="menu-switch-theme-btn" data-switch-theme-btn aria-label="{{t "Switch theme mode toggle button"}}">
+                <span class="menu-switch-theme-btn__icons">
+                    {{>icons/dark-mode-menu-icon}}
+                    {{>icons/light-mode-icon}}
+                </span>
+            </button>
+
+            <div class="mobile-menu__login">
+                {{#if @member}}
+                    <a href="{{#if @site.portal_button}}#/portal/account{{else}}/account{{/if}}" class="header-btn" title="{{t "Account page link"}}" aria-label="{{t "Account page link"}}">
+                        <span class="header-btn__icon-wrapper">
+                            {{>icons/login-btn-icon}}
+                            {{>icons/login-btn-icon}}
+                        </span>
+                    </a>
+                    {{else}}
+                    <a href="{{#if @site.portal_button}}#/portal/signin{{else}}/signin{{/if}}" class="header-btn" title="{{t "Sign in button"}}" aria-label="{{t "Sign in button"}}">
+                        <span class="header-btn__icon-wrapper">
+                            {{>icons/login-btn-icon}}
+                            {{>icons/login-btn-icon}}
+                        </span>
+                    </a>
+                {{/if}}
+            </div>
+        </div>
+
+        <nav class="mobile-menu__menu">
+            {{navigation position="menu"}}
+        </nav>
+
+        <div class="mobile-menu__bottom">
+            <form class="mobile-menu__form" data-members-form="subscribe" data-members-autoredirect="false">
+                <h2 class="mobile-menu__form-title">
+                    {{t "Don't Miss the Latest News"}}
+                </h2>
+                <input autocomplete="off" class="mobile-menu__form-input" data-members-email type="email" name="email-input" id="subscribe-banner-email-input" placeholder="{{t "Enter your email"}}" aria-label="{{t "Your email address"}}" required>
+                {{>button btnText="Subscribe" ariaLabel="Subscribe"}}
+
+                <p class="mobile-menu__form-error" data-members-error></p>
+                {{#if @site.portal_signup_terms_html}}
+                    <div class="mobile-menu__form-terms">{{{@site.portal_signup_terms_html}}}</div>
+                {{/if}}
+                <div class="mobile-menu__form-success">
+                    <h4 class="mobile-menu__form-success-title">
+                        {{t "Success! Now Check Your Email"}}
+                    </h4>
+                    <p class="mobile-menu__form-success-text">
+                        {{t "To complete Subscribe, click the confirmation link in your inbox. If
+                        it doesn’t arrive within 3 minutes, check your spam folder."}}
+                    </p>
+                </div>
+            </form>
+            <div class="mobile-menu__socials">
+                <span class="mobile-menu__socials-text">{{t "Follow Us"}}</span>
+                {{>socials socialLinkClassName=" social-link--white-bg"}}
+            </div>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+</div>

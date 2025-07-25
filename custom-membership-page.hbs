@@ -1,0 +1,79 @@
+{{!< default}}
+
+{{#if @site.members_enabled}}
+{{#page}}
+<main class="page membership monthly">
+    <div class="page-container">
+        {{>breadcrumbs classNames=" page__breadcrumbs"}}
+        <header class="page-header">
+            {{#match @page.show_title_and_feature_image}}
+                {{#if feature_image}}
+                    <picture class="page-header__img-wrapper">
+                    <source srcset="
+                    {{img_url feature_image size="2800" format="webp" }} 2800w,
+                    {{img_url feature_image size="2400" format="webp" }} 2400w,
+                    {{img_url feature_image size="2000" format="webp" }} 2000w, 
+                    {{img_url feature_image size="1600" format="webp" }} 1600w, 
+                    {{img_url feature_image size="1200" format="webp" }} 1200w, 
+                    {{img_url feature_image size="960" format="webp" }} 960w, 
+                    {{img_url feature_image size="720" format="webp" }} 720w, 
+                    {{img_url feature_image size="480" format="webp" }} 480w, 
+                    {{img_url feature_image size="400" format="webp" }} 400w"
+                        sizes="(max-width: 1300px) 97vw, 1240px" type="image/webp">
+                    <img class="page-header__img" srcset="
+                    {{img_url feature_image size="2800"}} 2800w,
+                    {{img_url feature_image size="2400"}} 2400w,
+                    {{img_url feature_image size="2000"}} 2000w,
+                    {{img_url feature_image size="1600"}} 1600w,
+                    {{img_url feature_image size="1200"}} 1200w, 
+                    {{img_url feature_image size="960"}} 960w, 
+                    {{img_url feature_image size="720"}} 720w, 
+                    {{img_url feature_image size="480"}} 480w, 
+                    {{img_url feature_image size="400"}} 400w"
+                        sizes="(max-width: 1300px) 97vw, 1240px" src="{{img_url feature_image size="2800"}}" alt="{{title}} {{t "Page image"}}" />
+                    </picture>
+                {{/if}}
+            {{/match}}
+
+            <h1 class="page-header__title">
+                {{title}}
+            </h1>
+            {{#if custom_excerpt}}
+            <p class="page-header__excerpt">
+                {{custom_excerpt}}
+            </p>
+            {{/if}}
+
+            <div class="membership__btns">
+                <button class="membership-toggle" aria-label="{{t "Monthly or yearly toggle button"}}">
+                    <span class="membership-toggle__btn membership-toggle__btn--monthly">{{t "Monthly"}}</span>
+                    <span class="membership-toggle__btn membership-toggle__btn--yearly">{{t "Yearly"}}</span>
+                </button>  
+                {{#unless @member}}
+                    <div class="membership-question">
+                    {{t "Already have an account?"}}
+                        <a href="{{@site.url}}/signin" aria-label="{{t "Log In"}}" class="membership-question__link">{{t "Log In"}}</a>
+                    </div>
+                {{/unless}}
+            </div>
+        </header>
+{{/page}}
+
+    {{#get "tiers" filter="visibility:public" include="monthly_price,yearly_price,benefits" limit="all" as |tiers|}}
+        {{#if tiers}}
+            <section class="tiers">
+                {{#foreach tiers}}
+                    {{>tier-card}}
+                {{/foreach}}
+            </section>
+        {{/if}}
+    {{/get}}
+    </div>
+
+    {{#page}}
+        <div class="post-content">
+            {{content}}
+        </div>
+    {{/page}}
+</main>
+{{/if}}

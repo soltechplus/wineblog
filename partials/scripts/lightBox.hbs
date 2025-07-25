@@ -1,0 +1,40 @@
+{{!-- PhotoSwipe script --}}
+
+{{#has tag="#lightbox"}}
+    {{!-- PhotoSwipe Min CSS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.min.css">
+
+    {{!-- PhotoSwipe Min JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/umd/photoswipe.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/umd/photoswipe-lightbox.umd.min.js"></script>
+
+    {{!-- PhotoSwipe Init Script --}}
+    <script>
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '.kg-gallery-card, .kg-image-card, .kg-product-card',
+            children: 'img:not(a>img)',
+            pswpModule: PhotoSwipe,
+            preloaderDelay: 0
+        });
+
+        lightbox.addFilter('domItemData', (itemData, element, linkEl) => {
+            if (element) {
+                itemData.src = element.src;
+                itemData.srcset = element.getAttribute('srcset');
+                itemData.w = element.getAttribute('width');
+                itemData.h = element.getAttribute('height');
+                itemData.msrc = element.src;
+                itemData.thumbCropped = true;
+
+                const alt = element.alt;
+
+                if (alt) {
+                    itemData.alt = element.alt;
+                }
+            }
+            return itemData;
+        });
+
+        lightbox.init();
+    </script>
+{{/has}}

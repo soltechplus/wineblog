@@ -1,0 +1,66 @@
+{{{html}}}
+<div class="post-upgrade-cta">
+    <div class="post-upgrade-cta-content">
+        <div class="post-upgrade-cta-icon">
+            {{>icons/cta-lock-icon}}
+        </div>
+        {{#has visibility="paid"}}
+            <h2 class="post-upgrade-cta-title">{{t "This post is for paying subscribers only"}}</h2>
+        {{/has}}
+        {{#has visibility="members"}}
+            <h2 class="post-upgrade-cta-title">{{t "This post is for subscribers only"}}</h2>
+        {{/has}}
+        {{#has visibility="tiers"}}
+            <h2 class="post-upgrade-cta-title">{{t "This post is for subscribers on the"}} {{tiers}} {{t "only"}}</h2>
+        {{/has}}
+        {{#if @member}}
+            {{#if @site.portal_button}}
+            <a class="btn" href="#/portal/account/plans" aria-label="{{t "Upgrade your account"}}">
+                <span class="btn__text-wrapper">
+                    <span class="btn__text">{{t "Upgrade your account"}}</span>
+                    <span class="btn__text">{{t "Upgrade your account"}}</span>
+                </span>
+            </a>
+            {{else}}
+            <a class="btn" href="/membership" aria-label="{{t "Upgrade your account"}}">
+                <span class="btn__text-wrapper">
+                    <span class="btn__text">{{t "Upgrade your account"}}</span>
+                    <span class="btn__text">{{t "Upgrade your account"}}</span>
+                </span>
+            </a>
+            {{/if}}
+        {{else}}
+            {{#if @site.portal_button}}
+            <a class="btn" href="#/portal/signup" aria-label="{{t "Subscribe"}}">
+                <span class="btn__text-wrapper">
+                    <span class="btn__text">{{t "Subscribe"}}</span>
+                    <span class="btn__text">{{t "Subscribe"}}</span>
+                </span>
+            </a>
+            <p class="post-upgrade-cta-small-text">
+                <span class="post-upgrade-cta-small-text__text">{{t "Already Have an Account?"}}</span>
+                <a href="#/portal/signin" aria-label="{{t "Log In"}}" class="post-upgrade-cta-small-text__link">
+                    <span class="post-upgrade-cta-small-text__link-text">
+                        {{t "Log In"}}
+                    </span>
+                </a>
+            </p>
+            {{else}}
+            <a class="btn" href="/signup" aria-label="{{t "Subscribe"}}">
+                <span class="btn__text-wrapper">
+                    <span class="btn__text">{{t "Subscribe"}}</span>
+                    <span class="btn__text">{{t "Subscribe"}}</span>
+                </span>
+            </a>
+            <p class="post-upgrade-cta-small-text">
+                <span class="post-upgrade-cta-small-text__text">{{t "Already Have an Account?"}}</span>
+                <a href="{{@site.url}}/signin" aria-label="{{t "Log In"}}" class="post-upgrade-cta-small-text__link">
+                    <span class="post-upgrade-cta-small-text__link-text">
+                        {{t "Log In"}}
+                    </span>
+                </a>
+            </p>
+            {{/if}}
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,50 @@
+ <section class="grid-without-sidebar">
+    <div class="post-layout">
+        {{#match tag "=" 'show-latest-posts'}}
+            <h2 class="header-layout">
+                <span class="header-layout__title">
+                    {{t "Latest Posts"}}
+                </span>
+                <a href="/archive" class="header-layout__link"  arial-label="{{t "Link to archive page"}}">{{t "View All"}}</a>
+            </h2>
+            <div class="grid-without-sidebar__posts"{{#match pagination.next "!=" null}} data-load-more-posts="enable"{{else}} data-load-more-posts="disable"{{/match}}>
+                {{#foreach posts}}
+                    {{>post-card/post-card-default showAuthors="true"}}
+                {{/foreach}}
+            </div>
+            {{#match pagination.next "!=" null}}
+                {{>button btnType="loadMore"}}
+            {{/match}}
+        {{else match tag "=" 'show-featured-posts'}}
+            {{#get "posts" limit=@config.posts_per_page include="tags,authors" order="published_at desc" filter="featured:true"}}
+                {{#if posts}}
+                    <div class="grid-without-sidebar__posts">
+                        {{#foreach posts}}
+                        {{>post-card/post-card-default showAuthors="true"}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{else}}
+            <h2 class="header-layout">
+                <span class="header-layout__title">
+                    {{#get "tags" filter="slug:{{tag}}"}}
+                        {{#foreach tags}}
+                        {{name}}
+                        {{/foreach}}
+                    {{/get}}
+                </span>
+                <a href="/tag/{{tag}}" class="header-layout__link"  arial-label="{{t "Link to page tag {tagName}" tagName=tag}}">{{t "View All"}}</a>
+            </h2>
+            {{#get "posts" limit=@config.posts_per_page include="tags,authors" order="published_at desc" filter="tag:{{tag}}"}}
+                {{#if posts}}
+                    <div class="grid-without-sidebar__posts">
+                        {{#foreach posts}}
+                        {{>post-card/post-card-default showAuthors="true"}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{/match}}      
+    </div>
+</section>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" data-theme="{{@custom.default_theme}}">
+
+   <head>
+        {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{meta_title}}</title>
+
+        {{!-- Dark Mode Script --}}
+        {{#match @custom.default_theme "=" 'only dark'}}
+            <script>
+                localStorage.removeItem('data-theme');
+            </script>
+        {{else match @custom.default_theme "=" 'only light'}}
+            <script>
+                localStorage.removeItem('data-theme');
+            </script>
+        {{else match @custom.default_theme "=" 'system'}}
+            <script>
+                const rootElement = document.querySelector("html[data-theme]");
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+                rootElement.setAttribute('data-theme', systemTheme);
+                localStorage.setItem('data-theme', systemTheme);
+            </script>
+        {{else}}
+            <script>
+                const rootElement = document.querySelector("html[data-theme]");
+                const savedTheme = localStorage.getItem('data-theme');
+
+                if (savedTheme) {
+                    rootElement.setAttribute('data-theme', savedTheme);
+                } else {
+                    localStorage.setItem('data-theme', rootElement.getAttribute('data-theme'));
+                }
+            </script>
+        {{/match}}
+
+        {{!-- Loading Fonts, Fonts Variables Declarations --}}
+        {{>font-pairings}}
+
+        {{!-- Styles --}}
+        <link rel="stylesheet" href="{{asset "built/main.css"}}">
+
+        {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
+        it should always be the last tag before the closing head tag --}}
+        {{ghost_head}}
+    </head>
+
+     <body class="{{body_class}} theme-newsroom">
+        {{!-- Website's Header --}}
+        {{>header/header-layout}}
+
+        {{#page}}
+        <main class="form-page sign-in">
+            <div class="page-container">
+                {{>breadcrumbs classNames=" page__breadcrumbs"}}
+
+                <button class="form-toggle" aria-label="{{t "Sign Up, Sign In toggle button"}}">
+                    <span class="form-toggle__btn form-toggle--sign-up">{{t "Sign Up"}}</span>
+                    <span class="form-toggle__btn form-toggle--sign-in">{{t "Log In"}}</span>
+                </button> 
+
+                <form class="form" data-members-form="signin" data-members-autoredirect="false">
+                    {{#if title}}
+                        <h1 class="form-title">{{title}}</h1>
+                    {{/if}}
+                    {{#if custom_excerpt}}
+                        <p class="form-text">{{custom_excerpt}}</p>
+                    {{/if}}
+
+                    <input class="form__input" data-members-email type="email" name="email-input" id="email-input" placeholder="{{t "Your Email Address"}}" aria-label="{{t "Your Email Address"}}" required>
+                    {{>button btnText="Log In" ariaLabel="Log In" classNames=" form__btn"}}
+                    <p class="form__error" data-members-error></p>
+                    
+                    <div class="form-success">
+                        <img class="form-success__img" src="{{asset 'images/success-icon.png'}}" alt="{{t "success icon"}}">
+                        <h2 class="form-title">
+                            <span>{{t "Success!"}}</span>
+                            <br/>
+                            <span>{{t "Check Your Email"}}</span>
+                        </h2>
+                        <p class="form-text">
+                            {{t "To complete Sign In, click the confirmation link in your inbox. If it doesn’t arrive within 3 minutes, check your spam folder."}}
+                        </p>
+                        <a class="btn" href="{{@site.url}}/{{linkURL}}" aria-label="{{t "link to main page"}}">
+                            <div class="btn__text-wrapper">
+                                <span class="btn__text">{{t "Go to Main Page"}}</span>
+                                <span class="btn__text">{{t "Go to Main Page"}}</span>
+                            </div>
+                        </a>
+                    </div>
+                </form>
+        {{/page}}
+                <form class="form" data-members-form="signup" data-members-autoredirect="false">
+                    {{#get "pages" filter="slug:signup" as | pages |}}
+                        {{#if pages}}
+                            {{#foreach pages}} 
+                                {{#if title}}
+                                    <h1 class="form-title">{{title}}</h1>
+                                {{/if}}
+                                {{#if custom_excerpt}}
+                                    <p class="form-text">{{custom_excerpt}}</p>
+                                {{/if}}
+                            {{/foreach}}
+                        {{/if}}
+                    {{/get}}
+                    
+
+                    <input class="form__input" data-members-name type="text" name="name-input" id="name-input" placeholder="{{t "Your Name"}}" aria-label="{{t "Your Name"}}" required>
+                    <input class="form__input" data-members-email type="email" name="email-input" id="email-input" placeholder="{{t "Your Email Address"}}" aria-label="{{t "Your Email Address"}}" required>
+                    {{>button btnText="Create Account" ariaLabel="Create Account" classNames=" form__btn"}}
+                    <p class="form__error" data-members-error></p>
+                    {{#if @site.portal_signup_terms_html}}
+                        {{^if @site.portal_signup_checkbox_required}}
+                            <div class="form__terms">{{{@site.portal_signup_terms_html}}}</div>
+                        {{/if}}
+                    {{/if}}
+
+                    <div class="form-success">
+                        <img class="form-success__img" src="{{asset 'images/success-icon.png'}}" alt="{{t "success icon"}}">
+                        <h2 class="form-title">
+                            <span>{{t "Success!"}}</span>
+                            <br/>
+                            <span>{{t "Check Your Email"}}</span>
+                        </h2>
+                        <p class="form-text">
+                            {{t "To complete Sign In, click the confirmation link in your inbox. If it doesn’t arrive within 3 minutes, check your spam folder."}}
+                        </p>
+                        <a class="btn" href="{{@site.url}}/{{linkURL}}" aria-label="{{t "link to main page"}}">
+                            <div class="btn__text-wrapper">
+                                <span class="btn__text">{{t "Go to Main Page"}}</span>
+                                <span class="btn__text">{{t "Go to Main Page"}}</span>
+                            </div>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        {{!-- Website's Footer --}}
+        {{>footer}}
+
+        {{!-- Scripts --}}
+        <script src="{{asset 'built/main.js'}}" defer></script>
+
+        {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
+        {{ghost_foot}}
+    </body>
+
+</html>

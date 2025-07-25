@@ -1,0 +1,48 @@
+.breadcrumbs {
+  font-size: 0;
+  &__item {
+    text-transform: capitalize;
+
+    display: inline;
+
+    @include font--text-XS;
+    text-align: center;
+
+    color: var(--gray-color);
+
+    transition: color $transition-time ease;
+
+    &:nth-of-type(n + 2) {
+      margin-left: 8px;
+    }
+
+    &:not(:last-child) {
+      &::after {
+        content: '/';
+
+        @include font--text-XS;
+
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &__link {
+    @include font--text-XS;
+    color: var(--gray-color);
+
+    padding-bottom: 2px;
+
+    display: inline;
+    background-position: left 85%;
+    background-size: 100% 5%;
+    background-image: linear-gradient(to right, var(--gray-color) 0%, var(--gray-color) 100%);
+    background-repeat: no-repeat;
+    transition: background-size $transition-time ease-in-out, color $transition-time ease;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-size: 0% 5%;
+      }
+    }
+  }
+}

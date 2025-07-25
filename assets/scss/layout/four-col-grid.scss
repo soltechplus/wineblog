@@ -1,0 +1,26 @@
+.four-col-grid-layout {
+  &__posts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .four-col-grid-layout {
+    &__posts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .post-card-big-secondary {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .four-col-grid-layout {
+    &__posts {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,0 +1,150 @@
+.page-categories {
+  .page-header {
+    margin-bottom: 8px;
+  }
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  max-width: 100%;
+  width: 100%;
+  min-height: 235px;
+
+  position: relative;
+  border-radius: $border-radius-img;
+  overflow: hidden;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .category-card__img-wrapper {
+        scale: 1.03;
+      }
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  &__img-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__no-img {
+    width: 25%;
+  }
+
+  &__posts-count {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    width: fit-content;
+
+    @include font--tier;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 10;
+
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 4px;
+  }
+
+  &__name {
+    @include font--titles-H3;
+    color: #fff;
+    margin-top: auto;
+  }
+
+  &__description {
+    @include font--text-M;
+    color: #fff;
+    opacity: 0.8;
+  }
+}
+
+:root[data-theme='light'] {
+  .category-card__img-wrapper.has-dark-version {
+    .category-card__no-img {
+      &--light {
+        display: block;
+      }
+
+      &--dark {
+        display: none;
+      }
+    }
+  }
+}
+
+:root[data-theme='dark'] {
+  .category-card__img-wrapper.has-dark-version {
+    .category-card__no-img {
+      &--light {
+        display: none;
+      }
+
+      &--dark {
+        display: block;
+      }
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .categories {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 950px) {
+  .categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .categories {
+    grid-template-columns: 1fr;
+  }
+}

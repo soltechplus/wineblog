@@ -1,0 +1,178 @@
+{{!< default}}
+
+{{#tag}}
+<main class="page tag-page">
+    <div class="page-container">
+        {{>breadcrumbs classNames=" page__breadcrumbs"}}
+        <div class="tag-page__wrapper">
+            <div class="tag-page__data">
+                {{!-- This header is the same for both page types --}}
+                <header class="page-header page-header--tag-page">
+                    {{#if feature_image}}
+                         <picture class="page-header__img-wrapper">
+                            <source srcset="
+                            {{img_url feature_image size="2000" format="webp" }} 2000w, 
+                            {{img_url feature_image size="1600" format="webp" }} 1600w, 
+                            {{img_url feature_image size="1200" format="webp" }} 1200w, 
+                            {{img_url feature_image size="960" format="webp" }} 960w, 
+                            {{img_url feature_image size="720" format="webp" }} 720w, 
+                            {{img_url feature_image size="480" format="webp" }} 480w, 
+                            {{img_url feature_image size="400" format="webp" }} 400w"
+                               sizes="(max-width: 1000px) 95vw, (max-width: 1240px) 68vw, 821px" type="image/webp">
+                            <img class="page-header__img" srcset="
+                            {{img_url feature_image size="2000"}} 2000w,
+                            {{img_url feature_image size="1600"}} 1600w,
+                            {{img_url feature_image size="1200"}} 1200w,
+                            {{img_url feature_image size="960"}} 960w,
+                            {{img_url feature_image size="720"}} 720w,
+                            {{img_url feature_image size="480"}} 480w,
+                            {{img_url feature_image size="400"}} 400w"
+                                sizes="(max-width: 1240px) 68vw, 821px" src="{{img_url feature_image size="2000"}}" alt="{{name}} {{t "Tag image"}}" />
+                            </picture>
+                    {{/if}}
+                    <h1 class="page-header__title">
+                        {{name}}
+                    </h1>
+                    {{#if description}}
+                    <p class="page-header__excerpt">
+                        {{{description}}}
+                    </p>
+                    {{/if}}
+                </header>
+
+                {{!-- ======================================================= --}}
+                {{!-- START: CONDITIONAL LOGIC FOR PAGE TYPE --}}
+                {{!-- ======================================================= --}}
+
+                {{#match slug 'starts with' 'hash-'}}
+                    {{!-- THIS IS A GRAPE VARIETY PAGE (e.g., /tag/hash-chardonnay/) --}}
+                    {{!-- We will show a simple grid of all posts with this tag. --}}
+                    <section class="tag-posts">
+                        {{#get "posts" filter="tags:[{{slug}}]" limit="all" include="tags,authors" as |posts|}}
+                            {{#if posts}}
+                                <div class="tag-posts__grid">
+                                    {{#foreach posts}}
+                                        {{>post-card/post-card-default showAuthors="true"}}
+                                    {{/foreach}}
+                                </div>
+                            {{else}}
+                                <p class="no-posts">{{t "No posts found for this grape variety."}}</p>
+                            {{/if}}
+                        {{/get}}
+                    </section>
+
+                {{else}}
+                    {{!-- THIS IS A MAIN CATEGORY PAGE (e.g., /white-wine/) --}}
+                    {{!-- We show the latest posts and the dynamic list of grape varieties. --}}
+                    <section class="tag-posts">
+                        {{#get "posts" filter="tags:[{{slug}}]+status:published" limit="6" include="tags,authors" as |posts|}}
+                            {{#if posts}}
+                                <div class="tag-posts__grid"{{#if @site.next}} data-load-more-posts="enable"{{else}} data-load-more-posts="disable"{{/if}}>
+                                    {{#foreach posts}}
+                                        {{#if @first}}
+                                            {{>post-card/post-card-big-primary showExcerpt="true"}}
+                                        {{else if @last}}
+                                            {{>post-card/post-card-default showAuthors="true"}}
+                                        {{else}}
+                                            {{>post-card/post-card-default showAuthors="true"}}
+                                        {{/if}}
+                                    {{/foreach}}
+                                </div>
+                            {{else}}
+                                <p class="no-posts">{{t "No posts found for this tag."}}</p>
+                            {{/if}}
+                        {{/get}}
+                        {{#if @site.next}}
+                            {{>button btnType="loadMore"}}
+                        {{/if}}
+                    </section>
+
+                    <section class="tag-varieties">
+                        <h2 class="tag-varieties__title">{{t "Browse by Grape Variety"}}</h2>
+                        <div class="tag-varieties__grid" id="grape-varieties-grid"></div>
+                        <p class="no-varieties" id="no-varieties-message" style="display: none;">{{t "No grape varieties found for this category."}}</p>
+                    </section>
+                    
+                    <div id="data-source" style="display: none;">
+                        {{#get "posts" filter="tags:[{{slug}}]" limit="all" include="tags" as |tagged_posts|}}
+                            {{#foreach tagged_posts}}
+                                <div class="post-data-item">
+                                    {{#foreach tags visibility="internal"}}
+                                        <span class="post-tag-data" data-name="{{name}}" data-slug="{{slug}}" data-url="{{url}}"></span>
+                                    {{/foreach}}
+                                </div>
+                            {{/foreach}}
+                        {{/get}}
+                    </div>
+                {{/match}}
+                
+                {{!-- ======================================================= --}}
+                {{!-- END: CONDITIONAL LOGIC --}}
+                {{!-- ======================================================= --}}
+
+            </div>
+
+            <aside class="sidebar{{#if @custom.advertisement_image}} sidebar--with-adv-img{{/if}}">
+                {{!-- Your sidebar content here --}}
+            </aside>
+        </div>
+    </div>
+
+    {{!-- Your membership section here --}}
+</main>
+
+{{!-- Only run the script on main category pages --}}
+{{#match slug 'starts with' 'hash-'}}
+{{else}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const uniqueTags = {};
+        const tagElements = document.querySelectorAll('.post-tag-data');
+
+        tagElements.forEach(tagEl => {
+            const name = tagEl.dataset.name;
+            const slug = tagEl.dataset.slug;
+            let url = tagEl.dataset.url;
+
+            if (url === '/404/' && slug) {
+                url = `/tag/${slug}/`;
+            }
+            
+            if (name && url && !uniqueTags[name]) {
+                uniqueTags[name] = { name: name.replace(/^#/, ''), url: url };
+            }
+        });
+
+        const grid = document.getElementById('grape-varieties-grid');
+        const noVarietiesMessage = document.getElementById('no-varieties-message');
+        const varietyKeys = Object.keys(uniqueTags);
+
+        if (varietyKeys.length > 0) {
+            varietyKeys.forEach(key => {
+                const tag = uniqueTags[key];
+                const card = document.createElement('a');
+                card.href = tag.url;
+                card.className = 'tag-variety-card';
+                
+                const nameEl = document.createElement('span');
+                nameEl.className = 'tag-variety-card__name';
+                nameEl.textContent = tag.name;
+                
+                card.appendChild(nameEl);
+                grid.appendChild(card);
+            });
+        } else {
+            if (noVarietiesMessage) {
+                noVarietiesMessage.style.display = 'block';
+            }
+        }
+
+        const dataSource = document.getElementById('data-source');
+        if (dataSource) {
+            dataSource.remove();
+        }
+    });
+</script>
+{{/match}}
+
+{{/tag}}

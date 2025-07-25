@@ -1,0 +1,139 @@
+.post-card-small {
+  display: flex;
+  gap: 8px;
+
+  max-width: 298px;
+  width: 100%;
+
+  box-sizing: content-box;
+
+  transition: border-color $transition-time ease;
+
+  &__img-link,
+  &__no-img-link {
+    flex-shrink: 0;
+    max-width: 80px;
+    width: 100%;
+    height: 80px;
+    display: block;
+
+    border-radius: $border-radius-block;
+
+    overflow: hidden;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        .post-card-small__no-img,
+        .post-card-small__img {
+          scale: 1.03;
+        }
+      }
+    }
+  }
+
+  &__no-img-link {
+    background-color: var(--stroke-color);
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background-color $transition-time ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        .post-card-small__no-img,
+        .post-card-small__no-img-title {
+          scale: 1.03;
+        }
+      }
+    }
+  }
+
+  &__no-img-title {
+    font-size: 1.2rem;
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__no-img {
+    width: 50%;
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__img,
+  &__img-wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__img {
+    object-fit: cover;
+    transition: scale $transition-time ease;
+    will-change: scale;
+  }
+
+  &__heading-link {
+    @include font--titles-H5;
+
+    transition: opacity $transition-time ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__meta {
+    @include font--text-XS;
+    color: var(--gray-color);
+    transition: color $transition-time ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__date {
+    opacity: 0.8;
+  }
+}
+
+:root[data-theme='only light'],
+:root[data-theme='light'] {
+  .post-card-small__no-img-link.has-dark-version {
+    .post-card-small__no-img {
+      &--light {
+        display: block;
+      }
+
+      &--dark {
+        display: none;
+      }
+    }
+  }
+}
+
+:root[data-theme='only dark'],
+:root[data-theme='dark'] {
+  .post-card-small__no-img-link.has-dark-version {
+    .post-card-small__no-img {
+      &--light {
+        display: none;
+      }
+
+      &--dark {
+        display: block;
+      }
+    }
+  }
+}

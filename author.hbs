@@ -1,0 +1,142 @@
+{{!< default}}
+
+<main class="page">
+    <div class="page-container">
+        {{#author}}
+            {{>breadcrumbs classNames=" page__breadcrumbs"}}
+            <div class="author">
+                <div class="author__container">
+                    {{#if profile_image}}
+                        <picture class="author__image-wrapper">
+                            <source srcset="
+                                {{img_url profile_image size="300" format="webp" }} 300w,
+                                {{img_url profile_image size="150" format="webp" }} 150w"
+                                    sizes="100px" type="image/webp">
+                                <img class="author__image" srcset="
+                                {{img_url profile_image size="300"}} 300w,
+                                {{img_url profile_image size="150"}} 150w"
+                                    sizes="100px" src="{{img_url profile_image size="300"}}"
+                                    alt="{{name}} {{t "Profile image"}}" />
+                        </picture>
+                    {{else}}
+                        <div class="author__image-wrapper author__image-wrapper--no-image">
+                            {{>icons/author-default-icon}}
+                        </div>
+                    {{/if}}
+                    
+                    <div class="author__info">
+                        {{#if location}}
+                            <span class="author__location">
+                                <span class="author__location-text">{{location}}</span>
+                            </span>
+                        {{/if}}
+
+                        <h4 class="author__name">
+                            {{name}}
+                        </h4>
+                        
+
+                        {{#get "authors" include="count.posts" filter="slug:{{slug}}" limit="all"}}
+                            {{#if authors}}
+                                {{#foreach authors}}
+                                    <div class="author__posts-count">
+                                        {{count.posts}}
+                                        {{plural count.posts empty=(t "No Posts") singular=(t "Post") plural=(t "Posts")}}
+                                    </div>
+                                {{/foreach}}
+                            {{/if}}
+                        {{/get}}
+                    </div>
+                </div>
+
+                {{#if bio}}
+                <div class="author__container author__container--flex-column">
+                    <span class="author__container-title">{{t "About Author"}}</span>
+                    <p class="author__bio">
+                        {{bio}}
+                    </p>
+                </div>
+                {{/if}}
+
+                {{#has any="facebook, twitter, website, linkedin, bluesky, threads, mastodon, tiktok, youtube, instagram"}}
+                    <div class="author__container author__container--flex-column">
+                        <span class="author__container-title">{{t "Follow"}}</span>
+                        <div class="author__socials">
+                            {{#if website}}
+                            <a class="author__social-link" href="{{social_url type="website"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "website link"}}">
+                                {{>icons/author-globe-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if twitter}}
+                            <a class="author__social-link" href="{{social_url type="twitter"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "twitter link"}}">
+                                {{>icons/twitter-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if facebook}}
+                            <a class="author__social-link" href="{{social_url type="facebook"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "facebook link"}}">
+                                {{>icons/facebook-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if linkedin}}
+                            <a class="author__social-link" href="{{social_url type="linkedin"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "linkedin link"}}">
+                                {{>icons/linkedin-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if bluesky}}
+                            <a class="author__social-link" href="{{social_url type="bluesky"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "bluesky link"}}">
+                                {{>icons/bluesky-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if threads}}
+                            <a class="author__social-link" href="{{social_url type="threads"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "threads link"}}">
+                                {{>icons/threads-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if mastodon}}
+                            <a class="author__social-link" href="{{social_url type="mastodon"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "mastodon link"}}">
+                                {{>icons/mastodon-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if tiktok}}
+                            <a class="author__social-link" href="{{social_url type="tiktok"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "tiktok link"}}">
+                                {{>icons/tiktok-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if youtube}}
+                            <a class="author__social-link" href="{{social_url type="youtube"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "youtube link"}}">
+                                {{>icons/youtube-icon}}
+                            </a>
+                            {{/if}}
+                            {{#if instagram}}
+                            <a class="author__social-link" href="{{social_url type="instagram"}}" target="_blank" rel="noopener"
+                                aria-label="{{name}}'s {{t "instagram link"}}">
+                                {{>icons/instagram-icon}}
+                            </a>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/has}}
+            </div>
+        {{/author}}
+
+        <div class="author-posts">
+            <div class="author-posts__grid"{{#match pagination.next "!=" null}} data-load-more-posts="enable"{{else}} data-load-more-posts="disable"{{/match}}>
+                {{#foreach posts}}
+                    {{>post-card/post-card-default showAuthors="true"}}
+                {{/foreach}}
+            </div>
+            {{#match pagination.next "!=" null}}
+                {{>button btnType="loadMore"}}
+            {{/match}}
+        </div>
+    </div> 
+</main>

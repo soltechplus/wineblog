@@ -1,0 +1,115 @@
+<article class="post-card-big-primary {{post_class}}" role="article">
+    <div class="post-card-big-primary__img-link-wrapper">
+        {{#if feature_image}}
+            <div class="post-card-big-primary__img-link">
+                <picture>
+                    <source 
+                        srcset="
+                        {{img_url feature_image size="2400" format="webp" }} 2400w, 
+                        {{img_url feature_image size="2000" format="webp" }} 2000w,
+                        {{img_url feature_image size="1600" format="webp" }} 1600w,
+                        {{img_url feature_image size="1200" format="webp" }} 1200w,
+                        {{img_url feature_image size="960" format="webp" }} 960w,
+                        {{img_url feature_image size="720" format="webp" }} 720w"
+                        sizes="(max-width: 1000px) 95vw, (max-width: 1300px) 72vw, 926px"
+                        type="image/webp">
+                        <img 
+                        srcset="
+                        {{img_url feature_image size="2400"}} 2400w,
+                        {{img_url feature_image size="2000"}} 2000w, 
+                        {{img_url feature_image size="1600"}} 1600w,
+                        {{img_url feature_image size="1200"}} 1200w,
+                        {{img_url feature_image size="960"}} 960w,
+                        {{img_url feature_image size="720"}} 720w"
+                        sizes="(max-width: 1000px) 95vw, (max-width: 1300px) 72vw, 926px"
+                        src="{{img_url feature_image size="2400"}}"
+                        loading="lazy"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}} {{t "Post feature image"}}{{/if}}"
+                    class="post-card-big-primary__img">
+                </picture>
+            </div>
+        {{else}}
+            <div class="post-card-big-primary__no-img-link{{#if @custom.dark_mode_logo}} has-dark-version{{/if}}">
+                {{#if @site.logo}}
+                    {{#if @custom.dark_mode_logo}}
+                    <img src="{{img_url @custom.dark_mode_logo}}" alt="{{@site.title}} {{t "logo"}}" data-dark-mode-type="dark-logo" class="post-card-big-primary__no-img post-card-big-primary__no-img--dark"/>
+                    {{/if}}
+                    <img src="{{img_url @site.logo}}" alt="{{@site.title}} {{t "logo"}}" data-dark-mode-type="light-logo" class="post-card-big-primary__no-img post-card-big-primary__no-img--light"/>
+                    {{else}}
+                    <h3 class="post-card-big-primary__no-img-title">{{@site.title}}</h3>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="post-card-big-primary__content">
+        {{>post-tags showTags="true"}}
+
+        <a class="post-card-big-primary__link" aria-label="{{t "Post title link"}}" href="{{url}}"></a>
+
+        <h2 class="post-card-big-primary__heading">
+            <span class="post-card-big-primary__heading-link">{{title}}</span>
+        </h2>
+
+        {{#match showExcerpt '=' 'true'}}
+            {{#if custom_excerpt}}
+                <p class="post-card-big-primary__excerpt">{{custom_excerpt}}</p>
+            {{/if}}
+        {{/match}}
+
+        <div class="post-card-big-primary__meta">
+            {{>post-tags showTagsIcons="true"}}
+            
+            <time class="post-card-big-primary__date" datetime="{{date format='YYYY-MM-DD'}}">
+                {{date format="MMM D, YYYY"}}
+            </time> 
+
+            {{#match authors.length '=' 1}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        {{#if profile_image}}
+                            <a href="{{url}}" class="post-card-author__img-link">
+                                <picture class="post-card-author__img-wrapper">
+                                    <source 
+                                        srcset="
+                                        {{img_url profile_image size="100" format="webp"}} 100w"
+                                        sizes="28px"  
+                                        type="image/webp">
+                                    <img 
+                                        srcset="
+                                        {{img_url profile_image size="100"}} 100w"
+                                        sizes="34px" 
+                                        src="{{img_url profile_image}}"
+                                        class="post-card-author__img" 
+                                        alt="{{name}} {{t "Profile image"}}">
+                                </picture>
+                            </a>
+                        {{/if}}
+
+                        <div class="post-card-author__name-wrapper">
+                            <span class="post-card-author__name-prefix post-card-author__name-prefix--big-post">{{t "by"}}</span>  
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--big-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{else}}
+                {{#foreach authors}}
+                    <div class="post-card-author">
+                        <div class="post-card-author__name-wrapper">
+                            {{#if @first}}
+                                <span class="post-card-author__name-prefix post-card-author__name-prefix--big-post">{{t "by"}}</span>  
+                            {{/if}}
+                            <a href="{{url}}" class="post-card-author__name post-card-author__name--big-post" aria-label="{{t "Link to page author {authorName}" authorName=name}}">
+                                {{name}}
+                            </a>
+                        </div>
+                    </div>
+                {{/foreach}}
+            {{/match}}
+                    
+            {{comment_count empty="" plural="" singular="" class="post-comment-count"}}
+        </div>
+    </div>
+</article>

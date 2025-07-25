@@ -1,0 +1,42 @@
+<aside data-dropdown-elem="dropdown" class="account-dropdown">
+    <picture class="account-dropdown__cover-img-wrapper{{^if @site.cover_image}} account-dropdown__cover-img-wrapper--no-cover-img{{/if}}{{#if @custom.dark_mode_logo}} has-dark-version{{/if}}">
+        {{#if @site.cover_image}}
+            <source srcset="
+            {{img_url @site.cover_image size="400" format="webp" }} 400w, 
+            {{img_url @site.cover_image size="300" format="webp" }} 300w" 
+            sizes="200px" type="image/webp">
+            <img srcset="
+            {{img_url @site.cover_image size="400"}} 400w, 
+            {{img_url @site.cover_image size="300"}} 300w" 
+            sizes="200px"
+                    src="{{img_url @site.cover_image size="400"}}" alt="{{@site.title}} {{t "cover image"}}" class="account-dropdown__cover-img">
+        {{else}}
+            {{#if @site.logo}}
+                {{#if @custom.dark_mode_logo}}
+                    <img class="logo__img logo__img--dark" src="{{img_url @custom.dark_mode_logo}}" alt="{{@site.title}} {{t "icon"}}">
+                {{/if}}
+                <img class="logo__img logo__img--light" src="{{img_url @site.logo}}" alt="{{@site.title}} {{t "icon"}}">
+            {{else}}
+                <span class="logo__title">{{@site.title}}</span>
+            {{/if}}
+        {{/if}}
+    </picture>
+    <div class="account-dropdown__content">
+        <span class="account-dropdown__title">{{t "Create Your Account"}}</span>
+        <p class="account-dropdown__description">{{t "Get access to exclusive features and stay updated."}}</p>
+        <a href="{{#if @site.portal_button}}#/portal/signup{{else}}/signup{{/if}}" class="btn" title="{{t "Sign up button"}}" aria-label="{{t "Sign up button"}}">
+            <span class="btn__text-wrapper">
+                <span class="btn__text">{{t "Sign Up"}}</span>
+                <span class="btn__text">{{t "Sign Up"}}</span>
+            </span>
+        </a>
+        <div class="account-dropdown__text">
+            <span>{{t "Already have an account?"}}</span>
+            <a href="{{@site.url}}/signin" aria-label="{{t "Log In"}}" class="account-dropdown__link">
+                <span class="account-dropdown__link-text">
+                    {{t "Log In"}} 
+                </span>
+            </a>
+        </div>
+    </div>
+</aside>

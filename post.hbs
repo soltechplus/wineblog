@@ -1,0 +1,27 @@
+{{!< default}}
+
+{{#post}}
+    <main class="post-page">
+        {{>breadcrumbs classNames=" post-page__breadcrumbs"}}
+        <article class="post post--default {{slug}} {{primary_tag.slug}}">
+            {{>post/post-header}}
+            <div class="post-content">
+                {{content}}
+            </div>
+            {{>post/post-footer}}
+            
+            {{#if comments}}
+                <div class="post-comments{{^if @member}} post-comments--not-member{{/if}}">
+                    {{comments title="" mode="auto" saturation=0 count=false}}
+                </div>
+            {{/if}}
+           
+            {{>post/next-post-block}}
+        </article>
+        {{>post/post-read-next}}
+
+    </main>
+    {{>scripts/lightBox}}
+{{/post}}
+
+

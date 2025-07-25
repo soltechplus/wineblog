@@ -1,0 +1,201 @@
+.account {
+  max-width: 840px;
+
+  padding: 32px;
+  border-radius: $border-radius-block;
+  background-color: var(--white-color);
+
+  margin: 16px auto 0;
+
+  transition: border-color $transition-time ease;
+
+  &__header {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__logout-btn {
+    align-self: flex-start;
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    display: block;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    &--default {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: var(--light-bg-color);
+      transition: background-color $transition-time ease;
+
+      svg {
+        path {
+          transition: fill $transition-time ease;
+          fill: var(--gray-color);
+        }
+      }
+    }
+  }
+
+  &__name {
+    @include font--titles-H4;
+  }
+
+  &__desc {
+    @include font--text-M;
+    color: var(--dark-color);
+    margin-top: 4px;
+    transition: color $transition-time ease;
+  }
+
+  &__logout-btn,
+  &__settings {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray-color);
+    @include font--text-M;
+    font-weight: 600;
+    transition: opacity $transition-time ease, color $transition-time ease;
+
+    svg {
+      path {
+        transition: stroke $transition-time ease;
+        stroke: var(--gray-color);
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__settings {
+    margin-top: 8px;
+  }
+
+  .btn {
+    width: fit-content;
+  }
+
+  &__edit-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .gh-error-subscription-cancel {
+      display: none;
+    }
+
+    &:has(.error) {
+      .gh-error-subscription-cancel {
+        display: block;
+      }
+    }
+  }
+
+  .account-info {
+    margin: 16px 0;
+    padding: 16px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      height: 1px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      background-color: var(--stroke-color);
+      transition: background-color $transition-time ease;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+
+    &__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 300px;
+      width: 100%;
+    }
+  }
+
+  .account-info-item {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &__name {
+      color: var(--dark-color);
+      @include font--text-M;
+
+      transition: color $transition-time ease;
+    }
+
+    &__value {
+      color: var(--gray-color);
+
+      @include font--text-S;
+
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      transition: color $transition-time ease;
+
+      svg {
+        circle {
+          transition: fill $transition-time ease;
+          fill: var(--gray-color);
+        }
+      }
+    }
+  }
+}
+
+.edit-billing-button {
+  margin: 0;
+}
+
+.cancel-subscription-btn {
+  color: var(--dark-color);
+  @include font--text-M;
+  width: fit-content;
+  transition: opacity $transition-time ease, color $transition-time ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.gh-error-subscription-cancel {
+  @include font--text-M;
+  color: red;
+  transition: color $transition-time ease;
+}

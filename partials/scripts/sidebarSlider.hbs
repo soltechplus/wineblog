@@ -1,0 +1,45 @@
+<script>
+    const sliders = document.querySelectorAll('.swiper')
+
+    function clearProgress(elements){
+        elements.forEach(element => {
+            element.style.setProperty('--progress', '0');
+        })
+    }
+
+    sliders.forEach(slider => {
+        new Swiper(slider, {
+            direction: 'horizontal',
+            loop: true,
+            slidesPerView: 1,
+            speed: 800,
+            autoplay: {
+                delay: 3000
+            },
+            allowTouchMove: true,
+            watchOverflow: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+            nextEl: `.swiper-button-next`,
+            prevEl: `.swiper-button-prev`
+            },
+            on: {
+                autoplayTimeLeft(event, timeLeft, progress) {
+                    const activeBullet = event.pagination.bullets[event.realIndex];
+                    const updateProgress = (100 - progress * 100) * 1.4;
+
+                    clearProgress(event.pagination.bullets)
+                    activeBullet.style.setProperty('--progress', `${updateProgress}%`);
+                },
+                navigationNext(event){
+                    clearProgress(event.pagination.bullets)
+                },
+                navigationPrev(event){
+                    clearProgress(event.pagination.bullets)
+                }
+            }
+        })
+    })
+</script>

@@ -1,0 +1,65 @@
+ <section class="big-grid-layout">
+    <div class="post-layout">
+        {{#match tag "=" 'show-latest-posts'}}
+            {{#get "posts" limit = 3 include="tags,authors" order="published_at desc"}}
+                {{#if posts}}
+                    <div class="big-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary showExcerpt="true"}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="big-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{else match tag "=" 'show-featured-posts'}}
+            {{#get "posts" limit = 3 include="tags,authors" order="published_at desc" filter="featured:true"}}
+                {{#if posts}}
+                    <div class="big-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary showExcerpt="true"}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="big-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{else}}
+            {{#get "posts" limit = 3 include="tags,authors" order="published_at desc" filter="tag:{{tag}}"}}
+                {{#if posts}}
+                    <div class="big-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary showExcerpt="true"}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="big-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{/match}}      
+    </div>
+</section>

@@ -1,0 +1,71 @@
+{{#match type "=" 'Grid + Sidebar with Slider with Featured Posts'}}
+    {{>layout/grid-with-sidebar tag=layoutTag featuredPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Latest Posts'}}
+    {{>layout/grid-with-sidebar tag=layoutTag latestPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Post on Slug'}}
+    {{>layout/grid-with-sidebar tag=layoutTag postsOnSlugWithSlider="true" sidebarTag=layoutCount}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Post on Slug'}}
+    {{>layout/grid-with-sidebar tag=layoutTag postsOnSlug="true" sidebarTag=layoutCount}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Featured Posts and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" featuredPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Latest Posts and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" latestPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Post on Slug and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" postsOnSlugWithSlider="true" sidebarTag=layoutCount}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Post on Slug and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" postsOnSlug="true" sidebarTag=layoutCount}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Featured Posts and Post on Slug'}}
+    {{>layout/grid-with-sidebar tag=layoutTag sidebarTag=layoutCount postsOnSlug="true" featuredPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Latest Posts and Post on Slug'}}
+    {{>layout/grid-with-sidebar tag=layoutTag sidebarTag=layoutCount postsOnSlug="true" latestPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" postsOnSlug="true" sidebarTag=layoutCount featuredPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image'}}
+    {{>layout/grid-with-sidebar tag=layoutTag advertisement="true" postsOnSlug="true" sidebarTag=layoutCount latestPostsWithSlider="true"}}
+{{/match}}
+
+{{#match type "=" 'Grid without Sidebar'}}
+    {{>layout/grid-without-sidebar tag=layoutTag}}
+{{/match}}
+
+{{#match type "=" 'Big Grid'}}
+    {{>layout/big-grid tag=layoutTag}}
+{{/match}}
+
+{{#match type "=" 'Medium Grid'}}
+    {{>layout/medium-grid tag=layoutTag}}
+{{/match}}
+
+{{#match type "=" 'Grid (4 columns)'}}
+    {{>layout/four-col-grid tag=layoutTag}}
+{{/match}}
+
+{{#match type "=" 'Grid (3 columns)'}}
+    {{>layout/three-col-grid tag=layoutTag}}
+{{/match}}

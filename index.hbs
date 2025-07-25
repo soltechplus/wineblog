@@ -1,0 +1,28 @@
+{{!< default}}
+
+<main class="main">
+     {{!-- First Section --}}
+    {{#match @custom.first_section_layout_type "!=" "None"}}
+        {{>posts-layout layoutTag = @custom.first_section_tag_or_title type = @custom.first_section_layout_type layoutCount = @custom.first_section_posts_count_or_tag}}
+    {{/match}}
+
+    {{!-- Second Section --}}
+    {{#match @custom.second_section_layout_type "!=" "None"}}
+        {{>posts-layout layoutTag = @custom.second_section_tag_or_title type = @custom.second_section_layout_type layoutCount = @custom.second_section_posts_count_or_tag}}
+    {{/match}}
+
+    {{!-- Third Section --}}
+    {{#match @custom.third_section_layout_type "!=" "None"}}
+        {{>posts-layout layoutTag = @custom.third_section_tag_or_title type = @custom.third_section_layout_type layoutCount = @custom.third_section_posts_count_or_tag}}
+    {{/match}}
+
+    {{!-- Fourth Section --}}
+    {{#match @custom.fourth_section_layout_type "!=" "None"}}
+        {{>posts-layout layoutTag = @custom.fourth_section_tag_or_title type = @custom.fourth_section_layout_type layoutCount = @custom.fourth_section_posts_count_or_tag}}
+    {{/match}}
+
+    {{!-- Fifth Section --}}
+    {{#match @custom.fifth_section_layout_type "!=" "None"}}
+        {{>posts-layout layoutTag = @custom.fifth_section_tag_or_title type = @custom.fifth_section_layout_type layoutCount = @custom.fifth_section_posts_count_or_tag}}
+    {{/match}}
+</main>

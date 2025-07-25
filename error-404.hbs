@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}" data-theme="{{@custom.default_theme}}">
+
+    <head>
+        {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{meta_title}}</title>
+
+        {{!-- Dark Mode Script --}}
+        {{#match @custom.default_theme "=" 'only dark'}}
+            <script>
+                localStorage.removeItem('data-theme');
+            </script>
+        {{else match @custom.default_theme "=" 'only light'}}
+            <script>
+                localStorage.removeItem('data-theme');
+            </script>
+        {{else match @custom.default_theme "=" 'system'}}
+            <script>
+                const rootElement = document.querySelector("html[data-theme]");
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+                rootElement.setAttribute('data-theme', systemTheme);
+                localStorage.setItem('data-theme', systemTheme);
+            </script>
+        {{else}}
+            <script>
+                const rootElement = document.querySelector("html[data-theme]");
+                const savedTheme = localStorage.getItem('data-theme');
+
+                if (savedTheme) {
+                    rootElement.setAttribute('data-theme', savedTheme);
+                } else {
+                    localStorage.setItem('data-theme', rootElement.getAttribute('data-theme'));
+                }
+            </script>
+        {{/match}}
+
+        {{!-- Loading Fonts, Fonts Variables Declarations --}}
+        {{>font-pairings}}
+
+        {{!-- Styles --}}
+        <link rel="stylesheet" href="{{asset "built/main.css"}}">
+
+        {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
+        it should always be the last tag before the closing head tag --}}
+        {{ghost_head}}
+    </head>
+
+    <body class="{{body_class}} theme-newsroom">
+        {{!-- Website's Header --}}
+        {{>header/header-layout}}
+
+        <main class="page-404">
+            <div class="page-container">
+                {{>breadcrumbs classNames=" page__breadcrumbs"}}
+                <div class="page-404__info">
+                    <h1 class="page-404__title">{{t "Page Does Not Exist"}}</h1>
+                    <p class="page-404__text">
+                        {{t "Uh oh! The page you are looking for doesn't exist or has been moved. Try retracing your steps or going back home."}}
+                    </p>
+                    <a class="btn" href="{{@site.url}}/{{linkURL}}" aria-label="{{t "Home Page Link"}}">
+                        <span class="btn__text-wrapper">
+                            <span class="btn__text">{{t "Back To Homepage"}}</span>
+                            <span class="btn__text">{{t "Back To Homepage"}}</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        {{!-- Website's Footer --}}
+        {{>footer}}
+
+        {{!-- Scripts --}}
+        <script src="{{asset 'built/main.js'}}" defer></script>
+
+        {{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
+        {{ghost_foot}}
+    </body>
+
+</html>

@@ -1,0 +1,195 @@
+.post-footer {
+  max-width: 822px;
+  width: 100%;
+
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid var(--stroke-color);
+
+  transition: border-color $transition-time ease;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--gray-color);
+    transition: color $transition-time ease;
+  }
+
+  &__share {
+    padding: 40px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--white-color);
+    transition: background-color $transition-time ease;
+    border-radius: $border-radius-block;
+  }
+
+  &__share-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 483px;
+    width: 100%;
+  }
+
+  &__share-info {
+    max-width: 370px;
+    width: 100%;
+  }
+
+  &__share-title {
+    @include font--titles-H3;
+  }
+
+  &__share-description {
+    @include font--text-M;
+    color: var(--gray-color);
+    transition: color $transition-time ease;
+    margin-top: 4px;
+  }
+
+  &__share-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+
+    background-color: var(--light-bg-color);
+    transition: background-color $transition-time ease;
+    border-radius: 50%;
+
+    svg {
+      path {
+        transition: fill $transition-time ease;
+        fill: var(--dark-color);
+      }
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--dark-color);
+        svg {
+          path {
+            fill: var(--white-color);
+          }
+        }
+      }
+    }
+  }
+
+  .copyToClipboardBtn {
+    position: relative;
+
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--light-bg-color);
+
+    transition: background-color $transition-time ease, opacity $transition-time ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &::after {
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      @include font--text-XS;
+      line-height: 100%;
+      padding: 3px 7px;
+      position: absolute;
+      right: 0;
+      bottom: calc(-100% + 15px);
+      animation: fadeIn 0.35s ease;
+      width: max-content;
+      z-index: 10;
+      border-radius: 4px;
+
+      transition: color $transition-time ease, background-color $transition-time ease;
+    }
+
+    &.copied {
+      &::after {
+        display: flex;
+        content: 'Link copied!';
+        animation: fadeIn 0.2s ease;
+      }
+    }
+
+    &.notCopied {
+      &::after {
+        display: flex;
+        content: 'Copy failed!';
+        background-color: rgb(189, 11, 11);
+        animation: fadeIn 0.2s ease;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .post-page__wrapper {
+    .post-footer {
+      width: calc(100% - 40px);
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .post-footer__share {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 650px) {
+  .post-footer__share {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 550px) {
+  .post-footer__share {
+    padding: 24px;
+  }
+  .post-footer__share-title {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .post-footer__share-title {
+    font-size: 2.4rem;
+  }
+}

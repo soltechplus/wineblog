@@ -1,0 +1,55 @@
+<header class="header">
+    <div class="overlay"></div>
+    <div class="header__box">
+        <div class="header__container">
+            <div class="header__wrapper">
+                <button class="header-btn" data-mobile-menu="open">
+                    <span class="header-btn__icon-wrapper">
+                        {{>icons/burger-btn-icon}}
+                        {{>icons/burger-btn-icon}}
+                    </span>
+                </button>
+
+                {{#match @custom.header_type "=" 'Header with Logo and Navigation'}}
+                        {{>site-logo}}
+                        {{navigation}}
+                    </div>
+                {{/match}}
+
+                {{#match @custom.header_type "=" 'Header with Logo and Navigation with Subscribe Widget'}}
+                        {{>site-logo}}
+                        {{navigation}}
+                        <div class="header-subscribe">
+                            <button class="header-btn" aria-haspopup="true" aria-expanded="false">
+                                <span class="header-btn__icon-wrapper">
+                                    {{>icons/subscribe-icon}}
+                                    {{>icons/subscribe-icon}}
+                                </span>
+                            </button>
+                            {{>header/header-dropdown-subscribe}}
+                        </div>
+                    </div>
+                {{/match}}
+
+                {{#match @custom.header_type "=" 'Header with Burger Menu and Logo'}}
+                        <button class="header-btn header-btn__burger" data-mobile-menu="open">
+                            <span class="header-btn__icon-wrapper">
+                                {{>icons/burger-btn-icon}}
+                                {{>icons/burger-btn-icon}}
+                            </span>
+                        </button>
+                        {{>site-logo}}
+                    </div>
+                {{/match}}
+
+                {{>header/header-btns}}
+            </div>
+        {{>header/mobile-menu}}
+    </div>
+    {{#is 'post'}}
+        <div class="progress-bar">
+            <progress class="reading-progress" value="0" max="100" aria-label="{{t "Reading progress"}}"></progress>
+        </div>
+    {{/is}}
+</header>
+

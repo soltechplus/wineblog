@@ -1,0 +1,17 @@
+{{#get "posts" limit = 4 include="tags,authors" filter="id:-{{id}}" order="published_at desc"}}
+    {{#if posts.length}}
+        <section class="post-read-next">
+            <h2 class="header-layout">
+                <span class="header-layout__title">
+                    {{t "You May Be Interested"}}
+                </span>
+                <a href="/archive" class="header-layout__link"  arial-label="{{t "Link to archive page"}}">{{t "View All"}}</a>
+            </h2>
+            <div class="post-read-next__posts">
+                {{#foreach posts}}
+                    {{>post-card/post-card-big-secondary}}
+                {{/foreach}}
+            </div>
+        </section>
+    {{/if}} 
+{{/get}}

@@ -1,0 +1,101 @@
+.three-col-grid-layout {
+  &__posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    height: 100%;
+  }
+}
+
+@media (max-width: 950px) {
+  .three-col-grid-layout {
+    &__posts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .post-card-medium {
+      max-width: 100%;
+      &:first-of-type {
+        grid-column: 1/3;
+
+        .post-card-medium__img-link-wrapper {
+          height: 288px;
+        }
+
+        .post-card-medium__heading-link {
+          font-size: 3.2rem;
+          line-height: 4.2rem;
+        }
+
+        .post-card-medium__content {
+          align-items: center;
+          text-align: center;
+        }
+        .post-tags {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .three-col-grid-layout {
+    &__posts {
+      grid-template-columns: 1fr;
+    }
+    .post-card-medium {
+      max-width: 100%;
+      &:first-of-type {
+        .post-card-medium__content {
+          align-items: flex-start;
+          text-align: left;
+        }
+        .post-tags {
+          justify-content: flex-start;
+        }
+      }
+      .post-card-medium__img-link-wrapper {
+        height: 288px;
+      }
+      .post-card-medium__heading-link {
+        font-size: 3.2rem;
+        line-height: 4.2rem;
+      }
+
+      .post-card-medium__content {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .post-tags {
+        justify-content: flex-start;
+      }
+      &:first-of-type {
+        grid-column: unset;
+      }
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .three-col-grid-layout {
+    .post-card-medium {
+      &:first-of-type {
+        .post-card-medium__heading-link {
+          font-size: 2.8rem;
+          line-height: 3.8rem;
+        }
+        .post-card-medium__img-link-wrapper {
+          height: 226px;
+        }
+      }
+      .post-card-medium__img-link-wrapper {
+        height: 226px;
+      }
+      .post-card-medium__heading-link {
+        font-size: 2.8rem;
+        line-height: 3.8rem;
+      }
+    }
+  }
+}

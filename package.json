@@ -1,0 +1,326 @@
+{
+  "name": "wine",
+  "description": "Wine - Ghost Theme for Personal Blogging",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "screenshots": {
+    "desktop": "assets/screenshot_desktop.webp",
+    "mobile": "assets/screenshot_mobile.webp"
+  },
+  "scripts": {
+    "dev": "rollup -c --environment BUILD:development -w",
+    "build": "rollup -c --environment BUILD:production",
+    "zip": "npm run build && bestzip newsroom.zip assets/* locales/* partials/* members/* *.hbs package.json rollup.config.js README.md",
+    "test": "npx gscan .",
+    "pretest": "npm run build"
+  },
+  "author": {
+    "name": "Soltechplus",
+    "email": "info@soltechplus.com",
+    "url": "https://soltechplus.com"
+  },
+  "gpm": {
+    "type": "theme",
+    "categories": [
+      "Beautiful",
+      "Clean",
+      "Minimal",
+      "Blog"
+    ]
+  },
+  "keywords": [
+    "ghost",
+    "theme",
+    "ghost-theme"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "bestzip": "^2.2.1",
+    "postcss": "^8.4.38",
+    "postcss-preset-env": "^8.0.1",
+    "rollup": "^4.18.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-scss": "^4.0.0",
+    "sass": "^1.77.6"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "config": {
+    "posts_per_page": 13,
+    "image_sizes": {
+      "100": {
+        "width": 100
+      },
+      "150": {
+        "width": 150
+      },
+      "300": {
+        "width": 300
+      },
+      "400": {
+        "width": 400
+      },
+      "480": {
+        "width": 480
+      },
+      "720": {
+        "width": 720
+      },
+      "960": {
+        "width": 960
+      },
+      "1200": {
+        "width": 1200
+      },
+      "1600": {
+        "width": 1600
+      },
+      "2000": {
+        "width": 2000
+      },
+      "2400": {
+        "width": 2400
+      },
+      "2800": {
+        "width": 2800
+      },
+      "3600": {
+        "width": 3600
+      }
+    },
+    "card_assets": true,
+    "custom": {
+      "dark_mode_logo": {
+        "type": "image",
+        "description": "Add a logo that will appear in dark theme mode."
+      },
+      "header_type": {
+        "type": "select",
+        "description": "Select the header type.",
+        "options": [
+          "Header with Logo and Navigation",
+          "Header with Logo and Navigation with Subscribe Widget",
+          "Header with Burger Menu and Logo"
+        ],
+        "default": "Header with Logo and Navigation with Subscribe Widget"
+      },
+      "advertisement_image": {
+        "type": "image"
+      },
+      "subscribe_image": {
+        "type": "image"
+      },
+      "default_theme": {
+        "type": "select",
+        "options": [
+          "light",
+          "dark",
+          "system",
+          "only dark",
+          "only light"
+        ],
+        "default": "light"
+      },
+      "first_section_tag_or_title": {
+        "type": "text",
+        "description": "Enter the tag slug or the title.",
+        "group": "homepage"
+      },
+      "first_section_layout_type": {
+        "type": "select",
+        "description": "Choose posts layout type for the first section.",
+        "options": [
+          "None",
+          "Grid + Sidebar with Slider with Featured Posts",
+          "Grid + Sidebar with Slider with Latest Posts",
+          "Grid + Sidebar with Slider with Post on Slug",
+          "Grid + Sidebar with Post on Slug",
+          "Grid + Sidebar with Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Latest Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image",
+          "Grid without Sidebar",
+          "Big Grid",
+          "Medium Grid",
+          "Grid (4 columns)",
+          "Grid (3 columns)"
+        ],
+        "default": "None",
+        "group": "homepage"
+      },
+      "first_section_posts_count_or_tag": {
+        "type": "text",
+        "description": "Enter how many posts will be in the first section. Enter the tag slug if you're using a section with a sidebar that displays posts by slug.",
+        "default": "6",
+        "group": "homepage"
+      },
+      "second_section_tag_or_title": {
+        "type": "text",
+        "description": "Enter the tag slug or the title.",
+        "group": "homepage"
+      },
+      "second_section_layout_type": {
+        "type": "select",
+        "description": "Choose posts layout type for the second section.",
+        "options": [
+          "None",
+          "Grid + Sidebar with Slider with Featured Posts",
+          "Grid + Sidebar with Slider with Latest Posts",
+          "Grid + Sidebar with Slider with Post on Slug",
+          "Grid + Sidebar with Post on Slug",
+          "Grid + Sidebar with Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Latest Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image",
+          "Grid without Sidebar",
+          "Big Grid",
+          "Medium Grid",
+          "Grid (4 columns)",
+          "Grid (3 columns)"
+        ],
+        "default": "None",
+        "group": "homepage"
+      },
+      "second_section_posts_count_or_tag": {
+        "type": "text",
+        "description": "Enter how many posts will be in the second section. Enter the tag slug if you're using a section with a sidebar that displays posts by slug.",
+        "default": "6",
+        "group": "homepage"
+      },
+      "third_section_tag_or_title": {
+        "type": "text",
+        "description": "Enter the tag slug or the title.",
+        "group": "homepage"
+      },
+      "third_section_layout_type": {
+        "type": "select",
+        "description": "Choose posts layout type for the third section.",
+        "options": [
+          "None",
+          "Grid + Sidebar with Slider with Featured Posts",
+          "Grid + Sidebar with Slider with Latest Posts",
+          "Grid + Sidebar with Slider with Post on Slug",
+          "Grid + Sidebar with Post on Slug",
+          "Grid + Sidebar with Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Latest Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image",
+          "Grid without Sidebar",
+          "Big Grid",
+          "Medium Grid",
+          "Grid (4 columns)",
+          "Grid (3 columns)"
+        ],
+        "default": "None",
+        "group": "homepage"
+      },
+      "third_section_posts_count_or_tag": {
+        "type": "text",
+        "description": "Enter how many posts will be in the third section. Enter the tag slug if you're using a section with a sidebar that displays posts by slug.",
+        "default": "6",
+        "group": "homepage"
+      },
+      "fourth_section_tag_or_title": {
+        "type": "text",
+        "description": "Enter the tag slug or the title.",
+        "group": "homepage"
+      },
+      "fourth_section_layout_type": {
+        "type": "select",
+        "description": "Choose posts layout type for the fourth section.",
+        "options": [
+          "None",
+          "Grid + Sidebar with Slider with Featured Posts",
+          "Grid + Sidebar with Slider with Latest Posts",
+          "Grid + Sidebar with Slider with Post on Slug",
+          "Grid + Sidebar with Post on Slug",
+          "Grid + Sidebar with Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Latest Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image",
+          "Grid without Sidebar",
+          "Big Grid",
+          "Medium Grid",
+          "Grid (4 columns)",
+          "Grid (3 columns)"
+        ],
+        "default": "None",
+        "group": "homepage"
+      },
+      "fourth_section_posts_count_or_tag": {
+        "type": "text",
+        "description": "Enter how many posts will be in the fourth section. Enter the tag slug if you're using a section with a sidebar that displays posts by slug.",
+        "default": "6",
+        "group": "homepage"
+      },
+      "fifth_section_tag_or_title": {
+        "type": "text",
+        "description": "Enter the tag slug or the title.",
+        "group": "homepage"
+      },
+      "fifth_section_layout_type": {
+        "type": "select",
+        "description": "Choose posts layout type for the fourth section.",
+        "options": [
+          "None",
+          "Grid + Sidebar with Slider with Featured Posts",
+          "Grid + Sidebar with Slider with Latest Posts",
+          "Grid + Sidebar with Slider with Post on Slug",
+          "Grid + Sidebar with Post on Slug",
+          "Grid + Sidebar with Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts and Advertisement Image",
+          "Grid + Sidebar with Slider with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Featured Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Latest Posts and Post on Slug",
+          "Grid + Sidebar with Slider with Featured Posts, Post on Slug and Advertisement Image",
+          "Grid + Sidebar with Slider with Latest Posts, Post on Slug and Advertisement Image",
+          "Grid without Sidebar",
+          "Big Grid",
+          "Medium Grid",
+          "Grid (4 columns)",
+          "Grid (3 columns)"
+        ],
+        "default": "None",
+        "group": "homepage"
+      },
+      "fifth_section_posts_count_or_tag": {
+        "type": "text",
+        "description": "Enter how many posts will be in the fifth section. Enter the tag slug if you're using a section with a sidebar that displays posts by slug.",
+        "default": "6",
+        "group": "homepage"
+      }
+    }
+  }
+}

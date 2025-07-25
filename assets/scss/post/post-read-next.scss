@@ -1,0 +1,36 @@
+.post-read-next {
+  padding-top: 40px;
+  margin-top: 40px;
+  position: relative;
+
+  &__posts,
+  .header-layout {
+    max-width: 1240px;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+  }
+
+  &__posts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 16px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .post-read-next__posts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    .post-card-big-secondary {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .post-read-next__posts {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

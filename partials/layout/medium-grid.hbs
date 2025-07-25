@@ -1,0 +1,114 @@
+ <section class="medium-grid-layout">
+    <div class="post-layout">
+        {{#match tag "=" 'show-latest-posts'}}
+            <h2 class="header-layout">
+                <span class="header-layout__title">
+                    {{t "Latest Posts"}}
+                </span>
+                <a href="/archive" class="header-layout__link"  arial-label="{{t "Link to archive page"}}">{{t "View All"}}</a>
+            </h2>
+            {{#get "posts" limit = 5 include="tags,authors" order="published_at desc"}}
+                {{#if posts}}
+                    <div class="medium-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="medium-grid-layout__posts-wrapper">
+                                <div class="medium-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                            {{#match @index 3}}
+                                <div class="medium-grid-layout__posts-column">
+                                    {{>post-card/post-card-small}}
+                            {{/match}}
+                            {{#match @index 4}}
+                                {{>post-card/post-card-small}}
+                                </div>
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{else match tag "=" 'show-featured-posts'}}
+            {{#get "posts" limit = 5 include="tags,authors" order="published_at desc" filter="featured:true"}}
+                {{#if posts}}
+                    <div class="medium-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="medium-grid-layout__posts-wrapper">
+                                <div class="medium-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                            {{#match @index 3}}
+                                <div class="medium-grid-layout__posts-column">
+                                    {{>post-card/post-card-small}}
+                            {{/match}}
+                            {{#match @index 4}}
+                                {{>post-card/post-card-small}}
+                                </div>
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{else}}
+            <h2 class="header-layout">
+                <span class="header-layout__title">
+                    {{#get "tags" filter="slug:{{tag}}"}}
+                        {{#foreach tags}}
+                        {{name}}
+                        {{/foreach}}
+                    {{/get}}
+                </span>
+                <a href="/tag/{{tag}}" class="header-layout__link"  arial-label="{{t "Link to page tag {tagName}" tagName=tag}}">{{t "View All"}}</a>
+            </h2>
+            {{#get "posts" limit = 5 include="tags,authors" order="published_at desc" filter="tag:{{tag}}"}}
+                {{#if posts}}
+                    <div class="medium-grid-layout__posts">
+                        {{#foreach posts}}
+                            {{#match @index 0}}
+                                {{>post-card/post-card-big-primary}}
+                            {{/match}}
+                            {{#match @index 1}}
+                                <div class="medium-grid-layout__posts-wrapper">
+                                <div class="medium-grid-layout__posts-column">
+                                {{>post-card/post-card-default}}
+                            {{/match}}
+                            {{#match @index 2}}
+                                
+                                {{>post-card/post-card-default}}
+                                </div>
+                            {{/match}}
+                            {{#match @index 3}}
+                                <div class="medium-grid-layout__posts-column">
+                                    {{>post-card/post-card-small}}
+                            {{/match}}
+                            {{#match @index 4}}
+                                {{>post-card/post-card-small}}
+                                </div>
+                                </div>
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                {{/if}}
+            {{/get}}
+        {{/match}}      
+    </div>
+</section>

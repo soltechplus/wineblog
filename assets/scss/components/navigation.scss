@@ -1,0 +1,159 @@
+.nav {
+  height: 100%;
+}
+
+.sec-nav-list,
+.nav-list {
+  display: flex;
+
+  height: 100%;
+}
+
+.sec-nav-list {
+  .nav-item__link {
+    @include font--text-M;
+    text-transform: capitalize;
+  }
+}
+
+.sec-nav-item,
+.nav-item {
+  white-space: nowrap;
+  &__link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--dark-color);
+
+    position: relative;
+
+    padding: 0 16px;
+
+    cursor: pointer;
+
+    transition: color $transition-time ease, opacity $transition-time ease;
+  }
+}
+
+.nav-item {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .nav-item__link {
+        opacity: 0.8;
+      }
+    }
+  }
+  &__link {
+    @include font--titles-H5;
+  }
+}
+
+.sec-nav-item {
+  &__link {
+    @include font--text-M;
+  }
+}
+
+.nav-submenu-item {
+  position: relative;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .nav-submenu-item__link {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    transition: opacity $transition-time ease;
+
+    svg {
+      transition: rotate $transition-time ease;
+      path {
+        transition: fill $transition-time ease;
+        fill: var(--dark-color);
+      }
+    }
+  }
+
+  &.open {
+    .nav-submenu-item__link {
+      svg {
+        rotate: 180deg;
+      }
+    }
+  }
+}
+
+.submenu {
+  flex-direction: column;
+
+  background-color: var(--white-color);
+
+  border-bottom-left-radius: $border-radius-block;
+  border-bottom-right-radius: $border-radius-block;
+
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 16px;
+
+  min-width: 210px;
+  display: none;
+
+  transition: background-color $transition-time ease, border-color $transition-time ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: transparent;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 1px;
+  }
+
+  &.open {
+    display: flex;
+  }
+
+  &.open-anim {
+    animation: fadeIn 0.3s forwards;
+  }
+
+  &.close-anim {
+    animation: fadeOut 0.3s forwards;
+  }
+
+  &__item {
+    transition: background-color $transition-time ease, color $transition-time ease;
+
+    &:last-of-type {
+      border-bottom-left-radius: $border-radius-block;
+      border-bottom-right-radius: $border-radius-block;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--light-bg-color);
+        .submenu__item-link {
+          color: var(--dark-color);
+        }
+      }
+    }
+  }
+
+  &__item-link {
+    @include font--text-M;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+
+    position: relative;
+  }
+}
